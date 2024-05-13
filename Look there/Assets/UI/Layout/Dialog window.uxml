@@ -1,0 +1,9 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:Template name="Dialog box" src="project://database/Assets/UI/Layout/Dialog%20box.uxml?fileID=9197481963319205126&amp;guid=0f0f3713108bf824189892f0e1beb775&amp;type=3#Dialog box" />
+    <Style src="project://database/Assets/UI/Styles/dialog%20window%20style.uss?fileID=7433441132597879392&amp;guid=085b7917adcd3fc4eaad904750405f13&amp;type=3#dialog window style" />
+    <ui:VisualElement name="Panel" style="flex-grow: 1; justify-content: flex-end;">
+        <ui:VisualElement style="flex-grow: 1; justify-content: flex-end; margin-left: 10%; margin-right: 10%;">
+            <ui:Instance template="Dialog box" name="Dialog box" style="flex-grow: 1; max-height: 20%;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

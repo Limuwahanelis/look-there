@@ -1,0 +1,5 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement name="Box" style="flex-grow: 1; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-top-width: 5px; border-right-width: 5px; border-bottom-width: 5px; border-left-width: 5px; background-color: rgba(67, 67, 67, 0.51); flex-shrink: 1; flex-direction: column;">
+        <ui:Label tabindex="-1" text="fsafasf&#10;fsafsaf&#10;" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Dialog" style="color: rgb(255, 255, 255); font-size: 35px; -unity-text-align: upper-left; text-overflow: clip; margin-left: 35px;" />
+    </ui:VisualElement>
+</ui:UXML>
