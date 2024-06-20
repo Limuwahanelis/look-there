@@ -69,7 +69,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "New action",
+                    "name": "Warp",
                     "type": "Button",
                     "id": "70bc5bbf-3bca-45c8-b9fa-fab577655308",
                     "expectedControlType": "Button",
@@ -168,50 +168,6 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "5f80e433-c92d-4d36-bccf-441ce90e2331",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "New action",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "1D Axis",
-                    "id": "373087c6-5ea4-496a-b85c-052534847c81",
-                    "path": "1DAxis",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "New action",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "negative",
-                    "id": "8e32e0fd-1312-4f00-89f8-8c24921db778",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "New action",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "positive",
-                    "id": "7ca35bf7-23ae-44a8-b889-cea23f5031d1",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "New action",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
                     "name": "2D Vector",
                     "id": "d419d030-a8c2-43c7-b940-fd46116b473c",
                     "path": "2DVector",
@@ -265,6 +221,17 @@
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "20c639f4-0be5-4b3f-9f7a-631554a468e4",
+                    "path": "<Keyboard>/c",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Warp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

@@ -7,6 +7,7 @@ public class PlayerInputHandler : MonoBehaviour
 {
     [SerializeField] PlayerController _player;
     [SerializeField] InputActionAsset _controls;
+    [SerializeField] PlayerWarpSkill _warpSkill;
     //private PlayerInteract _playerInteract;
     private bool isDownArrowPressed;
     private Vector2 direction;
@@ -60,5 +61,10 @@ public class PlayerInputHandler : MonoBehaviour
     {
         if (GlobalSettings.IsGamePaused) return;
         //_playerInteract.InteractWithObject();
+    }
+    private void OnWarp(InputValue value)
+    {
+        if (GlobalSettings.IsGamePaused) return;
+        _player.CurrentPlayerState.Dodge();
     }
 }

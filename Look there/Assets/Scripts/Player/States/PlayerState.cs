@@ -22,6 +22,7 @@ public abstract class PlayerState
     public virtual void Move(Vector2 direction) { }
     public virtual void Jump() { }
     public virtual void Attack() { }
+    public virtual void Dodge(){ }
     public abstract void InterruptState();
     public void ChangeState(Type newStateType)
     {

@@ -1,13 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class DialogBox : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] UIDocument _UIDocument;
+    VisualElement _root;
+
+    void Awake()
     {
-        
+        _root = _UIDocument.rootVisualElement;
     }
 
     // Update is called once per frame
