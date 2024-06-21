@@ -34,6 +34,10 @@ public class PlayerWalkingState : PlayerState
     {
         ChangeState(PlayerDodgingState.StateType);
     }
+    public override void Attack()
+    {
+        ChangeState(PlayerAttackingState.StateType);
+    }
     public override void InterruptState()
     {
      

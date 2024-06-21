@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] AnimationManager _playerAnimationManager;
     [SerializeField] PlayerMovement _playerMovement;
     [SerializeField] PlayerChecks _playerChecks;
+    [SerializeField] PlayerCombat _playerCombat;
     private PlayerState _currentPlayerState;
     private PlayerContext _context;
     private Dictionary<Type, PlayerState> playerStates = new Dictionary<Type, PlayerState>();
@@ -33,6 +34,7 @@ public class PlayerController : MonoBehaviour
             WaitAndPerformFunction = WaitAndExecuteFunction,
             coroutineHolder = this,
             checks = _playerChecks,
+            combat= _playerCombat,
         };
         PlayerState.GetState getState = GetState;
         foreach (Type state in states)

@@ -1541,6 +1541,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 855687768}
   m_CullTransparentMesh: 1
+--- !u!1 &980433971
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 980433972}
+  m_Layer: 0
+  m_Name: Attack middle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &980433972
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 980433971}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.06, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1106268727}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1023175819
 GameObject:
   m_ObjectHideFlags: 0
@@ -1804,6 +1835,7 @@ Transform:
   - {fileID: 201646014}
   - {fileID: 850181253}
   - {fileID: 1890449412}
+  - {fileID: 980433972}
   m_Father: {fileID: 1887915690}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1155223296
@@ -2048,6 +2080,7 @@ GameObject:
   - component: {fileID: 1375786675}
   - component: {fileID: 1375786673}
   - component: {fileID: 1375786676}
+  - component: {fileID: 1375786677}
   m_Layer: 0
   m_Name: Player scripts
   m_TagString: Untagged
@@ -2115,6 +2148,29 @@ MonoBehaviour:
   slideColWallkHeight: 0
   WallCheckWidth: 0
   WallCheckHeight: 0
+--- !u!114 &1375786677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1375786672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49a0ffd6c64dbac44a2dcb93b292311d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerMovement: {fileID: 1375786673}
+  _playerController: {fileID: 1887915694}
+  _animMan: {fileID: 1887915697}
+  _comboList: {fileID: 11400000, guid: 57ea4b671b63bf84ba220e883e344d21, type: 2}
+  _attackPos: {fileID: 980433972}
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  attackRange: 0.75
+  attackDamage: 8
+  playerHitSprite: {fileID: 0}
 --- !u!1 &1378843227
 GameObject:
   m_ObjectHideFlags: 0
@@ -11760,6 +11816,7 @@ MonoBehaviour:
   _playerAnimationManager: {fileID: 1887915697}
   _playerMovement: {fileID: 1375786673}
   _playerChecks: {fileID: 1375786676}
+  _playerCombat: {fileID: 1375786677}
 --- !u!50 &1887915695
 Rigidbody2D:
   serializedVersion: 4

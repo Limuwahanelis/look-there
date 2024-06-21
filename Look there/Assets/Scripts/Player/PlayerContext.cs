@@ -11,4 +11,5 @@ public class PlayerContext
     public AnimationManager animationManager;
     public PlayerMovement playerMovement;
     public PlayerChecks checks;
+    public PlayerCombat combat;
 }

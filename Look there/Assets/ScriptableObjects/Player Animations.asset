@@ -21,10 +21,6 @@ MonoBehaviour:
     duration: 0.51666665
     speed: 1
     layer: 0
-  - name: Attack1
-    duration: 0.4
-    speed: 1
-    layer: 0
   - name: Jump
     duration: 0.11666667
     speed: 1
@@ -51,6 +47,18 @@ MonoBehaviour:
     layer: 0
   - name: Dodge
     duration: 0.51666665
+    speed: 1
+    layer: 0
+  - name: Attack1
+    duration: 0.68333334
+    speed: 1
+    layer: 0
+  - name: Attack2
+    duration: 0.68333334
+    speed: 1
+    layer: 0
+  - name: Attack3
+    duration: 0.84999996
     speed: 1
     layer: 0
   animatorController: {fileID: 9100000, guid: 04a28c8199290124c925dcea322c3600, type: 2}
