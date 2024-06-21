@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Attack 2
   m_EditorClassIdentifier: 
   _associatedAnimation: {fileID: 7400000, guid: 2f6bdc6647a9a7f42a4bd65d90da0c9d, type: 2}
-  _useFrames: 0
-  _nextAttackWindowStart: 0
-  _nextAttackWindowEnd: 0.3416667
-  _nextAttackWindowStartFrame: 0
-  _nextAttackWindowEndFrame: 30
+  _useFrames: 1
+  _nextAttackWindowStart: 0.33333334
+  _nextAttackWindowEnd: 0.6666667
+  _nextAttackWindowStartFrame: 20
+  _nextAttackWindowEndFrame: 40

@@ -12,6 +12,7 @@ public class PlayerAttackingState : PlayerState
     private int _maxCombo = 3;
     private float _comboEndWindow;
     private float _comboStartWindow;
+    private Coroutine _attackCor;
     public static Type StateType { get => typeof(PlayerAttackingState); }
     public PlayerAttackingState(GetState function) : base(function)
     {
@@ -20,25 +21,6 @@ public class PlayerAttackingState : PlayerState
     public override void Update()
     {
         _time += Time.deltaTime;
-        //if (_time>=_attackTime)
-        //{
-        //    if(_nextAttack)
-        //    {
-        //        _time = 0;
-        //        _comboCounter++;
-        //        if(_comboCounter>_maxCombo)
-        //        {
-        //            _comboCounter = 1;
-        //        }
-        //        _attackTime = _context.animationManager.GetAnimationLength($"Attack{_comboCounter}");
-        //        _context.animationManager.PlayAnimation($"Attack{_comboCounter}");
-        //        _nextAttack = false;
-        //    }
-        //    else
-        //    {
-        //        ChangeState(PlayerIdleState.StateType);
-        //    }
-        //}
         if (_nextAttack)
         {
             if(_time >= _comboStartWindow)
@@ -49,9 +31,12 @@ public class PlayerAttackingState : PlayerState
                 {
                     _comboCounter = 1;
                 }
+                _context.coroutineHolder.StopCoroutine(_attackCor);
+                _attackCor = null;
                 _context.animationManager.PlayAnimation($"Attack{_comboCounter}");
                 _comboStartWindow = _context.combat.PlayerCombos.comboList[_comboCounter - 1].AttackWindowStart / _context.animationManager.GetAnimationSpeed("Attack" + _comboCounter, "Base Layer");
                 _comboEndWindow = _context.combat.PlayerCombos.comboList[_comboCounter - 1].AttackWindowEnd / _context.animationManager.GetAnimationSpeed("Attack" + _comboCounter, "Base Layer");
+                _attackCor=_context.coroutineHolder.StartCoroutine(_context.combat.AttackCor());
                 _nextAttack = false;
             }
         }
@@ -64,6 +49,7 @@ public class PlayerAttackingState : PlayerState
     public override void SetUpState(PlayerContext context)
     {
         base.SetUpState(context);
+        _attackCor = null;
         _context.playerMovement.StopPlayer();
         _comboCounter = 1;
         _time = 0;
@@ -72,6 +58,7 @@ public class PlayerAttackingState : PlayerState
         //_attackTime = _context.animationManager.GetAnimationLength("Attack1");
         _comboStartWindow = _context.combat.PlayerCombos.comboList[_comboCounter - 1].AttackWindowStart / _context.animationManager.GetAnimationSpeed("Attack" + _comboCounter, "Base Layer");
         _comboEndWindow = _context.combat.PlayerCombos.comboList[_comboCounter - 1].AttackWindowEnd / _context.animationManager.GetAnimationSpeed("Attack" + _comboCounter, "Base Layer");
+        _attackCor = _context.coroutineHolder.StartCoroutine(_context.combat.AttackCor());
     }
     public override void Dodge()
     {
@@ -79,34 +66,11 @@ public class PlayerAttackingState : PlayerState
     }
     public override void Attack()
     {
-    //    if (_context.animationManager.GetAnimationCurrentDuration("Attack" + _comboCounter, "Base Layer") >= _context.combat.PlayerCombos.comboList[_comboCounter - 1].AttackWindowStart / _context.animationManager.GetAnimationSpeed("Attack" + _comboCounter, "Base Layer")
-    //&& _context.animationManager.GetAnimationCurrentDuration("Attack" + _comboCounter, "Base Layer") <= _context.combat.PlayerCombos.comboList[_comboCounter - 1].AttackWindowEnd / _context.animationManager.GetAnimationSpeed("Attack" + _comboCounter, "Base Layer"))
-    //    {
             _nextAttack = true;
-        //}
-       
     }
-    public void PerformNextAttackInCombo(in PlayerAttackingState attackState)
-    {
-        //if (_comboAttackCounter > _comboList1.comboList.Count)
-        //{
-        //    return;
-        //}
-        if (_context.animationManager.GetAnimationCurrentDuration("Attack " + _comboCounter, "Combat") >= _context.combat.PlayerCombos.comboList[_comboCounter - 1].AttackWindowStart / _context.animationManager.GetAnimationSpeed("Attack " + _comboCounter, "Combat")
-            && _context.animationManager.GetAnimationCurrentDuration("Attack " + _comboCounter, "Combat") <= _context.combat.PlayerCombos.comboList[_comboCounter - 1].AttackWindowEnd / _context.animationManager.GetAnimationSpeed("Attack " + _comboCounter, "Combat"))
-        {
-            //_player.animManager.PlayAnimation("Attack " + _comboAttackCounter);
-            //_player.anim.SetTrigger("Attack");
-            //_comboAttackCounter++;
-            //attackState.StartWaitingFoNextAttack("Attack " + _comboAttackCounter);
-        }
-    }
-    //public float GetCurrentAttackWindowEndRaw()
-    //{
-    //    return _comboList1.comboList[_comboAttackCounter - 1].nextAttackWindowEnd;
-    //}
     public override void InterruptState()
     {
-     
+        _context.coroutineHolder.StopCoroutine(_attackCor);
+        _attackCor = null;
     }
 }
