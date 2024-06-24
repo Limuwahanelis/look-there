@@ -54,7 +54,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _LazyFillValue: 1.13
-    - _Value: 0.98
-    m_Colors: []
+    - _LazyFillValue: 1
+    - _Value: 1
+    m_Colors:
+    - _Background: {r: 1, g: 0, b: 0, a: 1}
+    - _Fill: {r: 0.3372549, g: 1, b: 0, a: 1}
+    - _LazyFill: {r: 1, g: 0.6862745, b: 0, a: 1}
   m_BuildTextureStacks: []

@@ -21,8 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Shader Graphs_HealthBarShader
-  m_Shader: {fileID: -6465566751694194690, guid: e731d00ecd5047947a37754bb6aa8927,
-    type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: e731d00ecd5047947a37754bb6aa8927, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
