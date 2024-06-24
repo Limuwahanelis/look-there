@@ -1,9 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PlayerCombat : MonoBehaviour
 {
+    public enum AttackModifiers
+    {
+
+        NONE,UP_ARROW
+    }
+    public enum AttackType
+    {
+        NORMAL,JUMPING
+    }
     public ComboList PlayerCombos => _comboList;
 
     [SerializeField] PlayerMovement _playerMovement;
@@ -13,6 +23,8 @@ public class PlayerCombat : MonoBehaviour
     //private Collider2D
 
     [SerializeField] Transform _attackPos;
+    [SerializeField] Transform _jumpAttackPos;
+    [SerializeField] Vector2 _jumpAttackSize;
     public LayerMask enemyLayer;
     public float attackRange;
     public int attackDamage;
@@ -43,27 +55,38 @@ public class PlayerCombat : MonoBehaviour
     {
         GetComponentInChildren<SpriteRenderer>().sprite = playerHitSprite;
     }
-    public IEnumerator AttackCor()
+    public IEnumerator AttackCor(AttackType attackType)
     {
+        List<Collider2D> hitEnemies = new List<Collider2D>() ;
+        switch (attackType)
+        {
+            case AttackType.NORMAL: hitEnemies = Physics2D.OverlapCircleAll(_attackPos.position, attackRange, enemyLayer).ToList(); break;
+            case AttackType.JUMPING: hitEnemies = Physics2D.OverlapBoxAll(_attackPos.position, _jumpAttackSize, enemyLayer).ToList(); break;
+        }
 
-        List<Collider2D> hitEnemies = new List<Collider2D>(Physics2D.OverlapCircleAll(_attackPos.position, attackRange, enemyLayer));
+        
         int index = 0;
         for (; index < hitEnemies.Count; index++)
         {
             IDamagable tmp = hitEnemies[index].GetComponentInParent<IDamagable>();
-            if (tmp != null) tmp.TakeDamage(attackDamage,PlayerHealthSystem.DamageType.ENEMY);
+            if (tmp != null) tmp.TakeDamage(new DamageInfo(attackDamage,PlayerHealthSystem.DamageType.ENEMY,transform.position));
         }
         yield return null;
         while (true)
         {
-            Collider2D[] colliders = Physics2D.OverlapCircleAll(_attackPos.position, attackRange, enemyLayer);
+            Collider2D[] colliders = null;
+            switch (attackType)
+            {
+                case AttackType.NORMAL: colliders = Physics2D.OverlapCircleAll(_attackPos.position, attackRange, enemyLayer); break;
+                case AttackType.JUMPING: colliders = Physics2D.OverlapBoxAll(_attackPos.position, _jumpAttackSize, enemyLayer); break;
+            }
             for (int i = 0; i < colliders.Length; i++)
             {
                 if (!hitEnemies.Contains(colliders[i]))
                 {
                     hitEnemies.Add(colliders[i]);
                     IDamagable tmp = colliders[i].GetComponentInParent<IDamagable>();
-                    if (tmp != null) tmp.TakeDamage(attackDamage, PlayerHealthSystem.DamageType.ENEMY);
+                    if (tmp != null) tmp.TakeDamage(new DamageInfo(attackDamage, PlayerHealthSystem.DamageType.ENEMY, transform.position));
                 }
             }
             yield return null;
@@ -77,7 +100,7 @@ public class PlayerCombat : MonoBehaviour
         for (; index < hitEnemies.Count; index++)
         {
             IDamagable tmp = hitEnemies[index].GetComponentInParent<IDamagable>();
-            if (tmp != null) tmp.TakeDamage(attackDamage, PlayerHealthSystem.DamageType.ENEMY);
+            if (tmp != null) tmp.TakeDamage(new DamageInfo(attackDamage, PlayerHealthSystem.DamageType.ENEMY, transform.position));
         }
         yield return null;
         while (airAttackTime <= _animMan.GetAnimationLength("Air attack"))
@@ -89,7 +112,7 @@ public class PlayerCombat : MonoBehaviour
                 {
                     hitEnemies.Add(colliders[i]);
                     IDamagable tmp = colliders[i].GetComponentInParent<IDamagable>();
-                    if (tmp != null) tmp.TakeDamage(attackDamage, PlayerHealthSystem.DamageType.ENEMY);
+                    if (tmp != null) tmp.TakeDamage(new DamageInfo(attackDamage, PlayerHealthSystem.DamageType.ENEMY, transform.position));
                 }
             }
             airAttackTime += Time.deltaTime;
@@ -99,6 +122,7 @@ public class PlayerCombat : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(_attackPos.position, attackRange);
+        if (_attackPos != null) Gizmos.DrawWireSphere(_attackPos.position, attackRange);
+        if (_jumpAttackPos != null) Gizmos.DrawWireCube(_jumpAttackPos.position, _jumpAttackSize);
     }
 }

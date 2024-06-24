@@ -31,9 +31,13 @@ public class PlayerIdleState : PlayerState
     {
         ChangeState(PlayerDodgingState.StateType);
     }
-    public override void Attack()
+    public override void Attack(PlayerCombat.AttackModifiers modifier)
     {
-        ChangeState(PlayerAttackingState.StateType);
+        switch (modifier)
+        {
+            case PlayerCombat.AttackModifiers.NONE: ChangeState(PlayerAttackingState.StateType); break;
+            case PlayerCombat.AttackModifiers.UP_ARROW: ChangeState(PlayerJumpingAttackState.StateType); break;
+        }
     }
     public override void InterruptState()
     {

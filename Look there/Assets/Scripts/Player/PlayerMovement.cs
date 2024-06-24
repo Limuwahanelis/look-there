@@ -76,6 +76,11 @@ public class PlayerMovement : MonoBehaviour
         //StartCoroutine(PushCor());
 
     }
+    public void SetRB(bool isdynamic)
+    {
+        if(isdynamic) _rb.bodyType=RigidbodyType2D.Dynamic;
+        else _rb.bodyType = RigidbodyType2D.Kinematic;
+    }
     public void PushPlayer(playerDirection pushDirection, Vector3 PushForce, IPlayerPusher playerPusher)
     {
         StopPlayer();

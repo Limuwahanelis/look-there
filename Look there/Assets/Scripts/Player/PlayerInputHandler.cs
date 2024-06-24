@@ -49,7 +49,8 @@ public class PlayerInputHandler : MonoBehaviour
     private void OnAttack(InputValue value)
     {
         if (GlobalSettings.IsGamePaused) return;
-        _player.CurrentPlayerState.Attack();
+        if(direction.y>0) _player.CurrentPlayerState.Attack(PlayerCombat.AttackModifiers.UP_ARROW);
+        else _player.CurrentPlayerState.Attack();
     }
 
     private void OnDownArrowModifier(InputValue value)
