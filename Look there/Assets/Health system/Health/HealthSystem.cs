@@ -10,7 +10,7 @@ public class HealthSystem : MonoBehaviour,IDamagable
     public HealthBar hpBar;
     public int maxHP;
     public int currentHP;
-    public Action OnHitEvent;
+    public Action<DamageInfo> OnHitEvent;
     public Action OnDeathEvent;
     // Start is called before the first frame update
     protected void Start()
@@ -19,11 +19,11 @@ public class HealthSystem : MonoBehaviour,IDamagable
         currentHP = maxHP;
         hpBar.SetHealth(currentHP);
     }
-    public virtual void TakeDamage(int dmg, PlayerHealthSystem.DamageType damageType)
+    public virtual void TakeDamage(DamageInfo info)
     {
-        currentHP -= dmg;
+        currentHP -= info.dmg;
         hpBar.SetHealth(currentHP);
-        OnHitEvent?.Invoke();
+        OnHitEvent?.Invoke(info);
         if (currentHP <= 0) Kill();
     }
 

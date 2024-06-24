@@ -38,15 +38,15 @@ public class PlayerHealthSystem : HealthSystem,IPushable
     {
         _pushInvincibiltyType = invincibiltyType;
     }
-    public override void TakeDamage(int dmg, DamageType damageType)
+    public override void TakeDamage(DamageInfo info)
     {
         if (player.IsAlive)
         {
-            if (_invincibiltyType==damageType || _invincibiltyType==DamageType.ALL) return;
-            currentHP -= dmg;
+            if (_invincibiltyType==info.damageType || _invincibiltyType==DamageType.ALL) return;
+            currentHP -= info.dmg;
             hpBar.SetHealth(currentHP);
             if (currentHP < 0) Kill();
-            else OnHitEvent?.Invoke();
+            else OnHitEvent?.Invoke(info);
             //player.currentState.OnHit();
             StartCoroutine(InvincibilityCor());
         }
