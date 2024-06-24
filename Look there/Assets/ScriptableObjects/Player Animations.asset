@@ -65,4 +65,16 @@ MonoBehaviour:
     duration: 0.84999996
     speed: 1
     layer: 0
+  - name: Air Attack1
+    duration: 0.51666665
+    speed: 1
+    layer: 0
+  - name: Air Attack2
+    duration: 0.51666665
+    speed: 1
+    layer: 0
+  - name: Air Attack3
+    duration: 0.26666668
+    speed: 1
+    layer: 0
   animatorController: {fileID: 9100000, guid: 04a28c8199290124c925dcea322c3600, type: 2}

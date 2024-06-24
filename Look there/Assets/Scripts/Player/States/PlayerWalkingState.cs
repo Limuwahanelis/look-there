@@ -13,6 +13,7 @@ public class PlayerWalkingState : PlayerState
     {
         base.SetUpState(context);
         _context.animationManager.PlayAnimation("Walk");
+        _context.canPerformAirCombo = true;
     }
     public override void Update()
     {

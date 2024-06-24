@@ -34,7 +34,8 @@ public class PlayerController : MonoBehaviour
             WaitAndPerformFunction = WaitAndExecuteFunction,
             coroutineHolder = this,
             checks = _playerChecks,
-            combat= _playerCombat,
+            combat = _playerCombat,
+            canPerformAirCombo = true,
         };
         PlayerState.GetState getState = GetState;
         foreach (Type state in states)

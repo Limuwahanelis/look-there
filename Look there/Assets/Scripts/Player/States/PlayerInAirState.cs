@@ -36,7 +36,10 @@ public class PlayerInAirState : PlayerState
     {
         _context.playerMovement.Move(direction.x);
     }
-
+    public override void Attack(PlayerCombat.AttackModifiers modifier)
+    {
+        if(_context.canPerformAirCombo) ChangeState(PlayerInAirAttackingState.StateType);
+    }
     public override void InterruptState()
     {
         _isFalling = false;

@@ -15,11 +15,12 @@ public class PlayerCombat : MonoBehaviour
         NORMAL,JUMPING
     }
     public ComboList PlayerCombos => _comboList;
-
+    public ComboList PlayerAirCombos => _airComboList;
     [SerializeField] PlayerMovement _playerMovement;
     [SerializeField] PlayerController _playerController;
     [SerializeField] AnimationManager _animMan;
     [SerializeField] ComboList _comboList;
+    [SerializeField] ComboList _airComboList;
     //private Collider2D
 
     [SerializeField] Transform _attackPos;
