@@ -23,10 +23,6 @@ public class HealthBar : MonoBehaviour
         _renderer.SetPropertyBlock(_propertyBlock);
         _lazyHP = _currentHP = _maxHP;
     }
-    private void Update()
-    {
-        transform.rotation = Camera.main.transform.rotation;
-    }
     public void SetHealth(int hp)
     {
         _lazyHP = _currentHP = hp;
