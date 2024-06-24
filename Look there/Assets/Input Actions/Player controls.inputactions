@@ -124,6 +124,39 @@
                     "isPartOfComposite": false
                 },
                 {
+                    "name": "One Modifier",
+                    "id": "18e55a19-71c0-4cc5-ac4d-dbf3fc803208",
+                    "path": "OneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Attack",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "45840d3f-050e-4e40-bcb4-6d5770772ccc",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "binding",
+                    "id": "9eca75da-263a-46b7-a197-762fba713e74",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "",
                     "id": "ec25ff46-cf86-4135-9a2a-d03fad1dfdf4",
                     "path": "<Keyboard>/z",
@@ -170,7 +203,7 @@
                 {
                     "name": "2D Vector",
                     "id": "d419d030-a8c2-43c7-b940-fd46116b473c",
-                    "path": "2DVector",
+                    "path": "2DVector(mode=1)",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
