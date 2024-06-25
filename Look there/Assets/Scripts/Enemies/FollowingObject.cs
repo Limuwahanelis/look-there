@@ -13,9 +13,11 @@ public class FollowingObject : MonoBehaviour
     private void Awake()
     {
         _healthSystem.OnHitEvent += Push;
+        
     }
     private void FixedUpdate()
     {
+        transform.up = _objectToFollow.transform.position - transform.position;
         if (_rb.velocity.magnitude < _maxSpeed)
         {
             _rb.AddForce((_objectToFollow.transform.position - transform.position).normalized * _force);
