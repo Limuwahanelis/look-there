@@ -3743,6 +3743,7 @@ MonoBehaviour:
   _animMan: {fileID: 1887915697}
   _comboList: {fileID: 11400000, guid: 57ea4b671b63bf84ba220e883e344d21, type: 2}
   _airComboList: {fileID: 11400000, guid: 2e220e8ea28cbcb4f99b816272752542, type: 2}
+  _airJumpAttack: {fileID: 11400000, guid: 15327c9147f5b334480a319f0cc5a92c, type: 2}
   _attackPos: {fileID: 980433972}
   _jumpAttackPos: {fileID: 1219750062}
   _airSlamLoopAttackPos: {fileID: 632798964}

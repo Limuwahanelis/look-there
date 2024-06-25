@@ -3,11 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerJumpingAttackState : PlayerState
+public class PlayerJumpingAttackState : PlayerAttackState
 {
     private float _jumpAttackTime;
-    private float _time;
-    private Coroutine _attackCor;
+    
     public static Type StateType { get => typeof(PlayerJumpingAttackState); }
     public PlayerJumpingAttackState(GetState function) : base(function)
     {
@@ -16,11 +15,10 @@ public class PlayerJumpingAttackState : PlayerState
     public override void Update()
     {
         _time += Time.deltaTime;
+        AttackCheck(PlayerCombat.AttackType.JUMPING);
         if(_time > _jumpAttackTime)
         {
             _context.playerMovement.SetRB(true);
-            _context.coroutineHolder.StopCoroutine(_attackCor);
-            _attackCor = null;
             ChangeState(PlayerInAirState.StateType);
         }
     }
@@ -29,10 +27,14 @@ public class PlayerJumpingAttackState : PlayerState
     {
         base.SetUpState(context);
         _context.animationManager.PlayAnimation("Jump Attack");
-        _jumpAttackTime = _context.animationManager.GetAnimationLength("Jump Attack");
+        _animSpeed = _context.animationManager.GetAnimationSpeed("Jump Attack");
+        _jumpAttackTime = _context.animationManager.GetAnimationLength("Jump Attack")/_animSpeed;
+        _currentAttack = _context.combat.JumpAttack;
+        _attackDamageStartWindow = _currentAttack.AttackDamageWindowStart;
+        _attackDamageEndWindow = _currentAttack.AttackDamageWindowEnd;
         _context.playerMovement.StopPlayer();
         _context.playerMovement.SetRB(false);
-        _attackCor=_context.coroutineHolder.StartCoroutine(_context.combat.AttackCor(PlayerCombat.AttackType.JUMPING));
+
         _time = 0;
     }
 

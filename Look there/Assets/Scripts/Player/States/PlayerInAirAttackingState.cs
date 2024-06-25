@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerInAirAttackingState : PlayerState
+public class PlayerInAirAttackingState : PlayerAttackState
 {
     private bool _nextAttack;
     private bool _changeToSlam;
@@ -11,10 +11,6 @@ public class PlayerInAirAttackingState : PlayerState
     private int _maxCombo = 3;
     private float _comboEndWindow;
     private float _comboStartWindow;
-    private float _time;
-    private float _attackDamageStartWindow;
-    private float _attackDamageEndWindow;
-    private Coroutine _attackCor;
     public static Type StateType { get => typeof(PlayerInAirAttackingState); }
     public PlayerInAirAttackingState(GetState function) : base(function)
     {
@@ -24,13 +20,14 @@ public class PlayerInAirAttackingState : PlayerState
     public override void Update()
     {
         _time += Time.deltaTime;
+
+        AttackCheck(PlayerCombat.AttackType.NORMAL);
+
         if (_nextAttack)
         {
             if (_time >= _comboStartWindow)
             {
                 _time = 0;
-                if(_attackCor!=null) _context.coroutineHolder.StopCoroutine(_attackCor);
-                _attackCor = null;
                 _comboCounter++;
                 if (_comboCounter==_maxCombo)
                 {
@@ -40,11 +37,15 @@ public class PlayerInAirAttackingState : PlayerState
                         return;
                     }
                 }
-              
                 _context.animationManager.PlayAnimation($"Air Attack{_comboCounter}");
-                _comboStartWindow = _context.combat.PlayerAirCombos.comboList[_comboCounter - 1].AttackWindowStart / _context.animationManager.GetAnimationSpeed("Air Attack" + _comboCounter, "Base Layer");
-                _comboEndWindow = _context.combat.PlayerAirCombos.comboList[_comboCounter - 1].AttackWindowEnd / _context.animationManager.GetAnimationSpeed("Air Attack" + _comboCounter, "Base Layer");
-                _attackCor = _context.coroutineHolder.StartCoroutine(_context.combat.AttackCor(PlayerCombat.AttackType.NORMAL));
+                _animSpeed = _context.animationManager.GetAnimationSpeed("Air Attack" + _comboCounter, "Base Layer");
+                _currentAttack = _context.combat.PlayerAirCombos.comboList[_comboCounter-1];
+                _comboStartWindow = _currentAttack.AttackWindowStart / _animSpeed;
+                _comboEndWindow = _currentAttack.AttackWindowEnd / _animSpeed;
+                _attackDamageStartWindow = _currentAttack.AttackDamageWindowStart;
+                _attackDamageEndWindow = _currentAttack.AttackDamageWindowEnd;
+                _checkForDmg = true;
+                _isDealingDmg = false;
                 _nextAttack = false;
             }
         }
@@ -67,16 +68,20 @@ public class PlayerInAirAttackingState : PlayerState
         base.SetUpState(context);
         _context.canPerformAirCombo = false;
         _changeToSlam = false;
-        _attackCor = null;
+        _nextAttack = false;
+        _comboCounter = 1;
         _context.playerMovement.SetRB(false);
         _context.playerMovement.StopPlayer();
-        _comboCounter = 1;
-        _time = 0;
-        _nextAttack = false;
+
         _context.animationManager.PlayAnimation("Air Attack1");
-        _comboStartWindow = _context.combat.PlayerAirCombos.comboList[_comboCounter - 1].AttackWindowStart / _context.animationManager.GetAnimationSpeed("Air Attack" + _comboCounter, "Base Layer");
-        _comboEndWindow = _context.combat.PlayerAirCombos.comboList[_comboCounter - 1].AttackWindowEnd / _context.animationManager.GetAnimationSpeed("Air Attack" + _comboCounter, "Base Layer");
-        _attackCor = _context.coroutineHolder.StartCoroutine(_context.combat.AttackCor(PlayerCombat.AttackType.NORMAL));
+
+        _animSpeed = _context.animationManager.GetAnimationSpeed("Air Attack" + _comboCounter, "Base Layer");
+        _currentAttack = _context.combat.PlayerAirCombos.comboList[_comboCounter - 1];
+        _comboStartWindow = _currentAttack.AttackWindowStart / _animSpeed;
+        _comboEndWindow = _currentAttack.AttackWindowEnd / _animSpeed;
+        _attackDamageStartWindow = _currentAttack.AttackDamageWindowStart;
+        _attackDamageEndWindow = _currentAttack.AttackDamageWindowEnd;
+        //_attackCor = _context.coroutineHolder.StartCoroutine(_context.combat.AttackCor(PlayerCombat.AttackType.NORMAL));
     }
 
     public override void Attack(PlayerCombat.AttackModifiers modifier)
@@ -90,6 +95,7 @@ public class PlayerInAirAttackingState : PlayerState
                 else _changeToSlam = false;
             }
             else _nextAttack = true;
+            Debug.Log("next");
         }
         else _nextAttack = false;
 

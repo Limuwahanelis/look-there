@@ -21,6 +21,7 @@ public class PlayerCombat : MonoBehaviour
     public float SlamSpeed;
     public ComboList PlayerCombos => _comboList;
     public ComboList PlayerAirCombos => _airComboList;
+    public ComboAttack JumpAttack=>_airJumpAttack;
     public LayerMask enemyLayer;
     [SerializeField] float attackRange;
     [SerializeField] int attackDamage;
@@ -28,8 +29,11 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] PlayerMovement _playerMovement;
     [SerializeField] PlayerController _playerController;
     [SerializeField] AnimationManager _animMan;
+    [Header("Attacks")]
+
     [SerializeField] ComboList _comboList;
     [SerializeField] ComboList _airComboList;
+    [SerializeField] ComboAttack _airJumpAttack;
 
     [Header("Attacks positions")]
 
