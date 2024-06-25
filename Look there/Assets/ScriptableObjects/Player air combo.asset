@@ -12,4 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a97b35a5aa2a3e4b8a55963157b2143, type: 3}
   m_Name: Player air combo
   m_EditorClassIdentifier: 
-  comboList: []
+  comboList:
+  - {fileID: 11400000, guid: b21b1ff52104ce447b4af91e1d615883, type: 2}
+  - {fileID: 11400000, guid: aa8e22ba48baaed428420349d1025f06, type: 2}
+  - {fileID: 11400000, guid: 88ebffa77269e3745a04050627562a37, type: 2}

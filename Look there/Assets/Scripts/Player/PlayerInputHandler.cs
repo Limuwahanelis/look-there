@@ -50,6 +50,7 @@ public class PlayerInputHandler : MonoBehaviour
     {
         if (GlobalSettings.IsGamePaused) return;
         if(direction.y>0) _player.CurrentPlayerState.Attack(PlayerCombat.AttackModifiers.UP_ARROW);
+        if(direction.y<0) _player.CurrentPlayerState.Attack(PlayerCombat.AttackModifiers.DOWN_ARROW);
         else _player.CurrentPlayerState.Attack();
     }
 

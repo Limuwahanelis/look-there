@@ -8,28 +8,40 @@ public class PlayerCombat : MonoBehaviour
     public enum AttackModifiers
     {
 
-        NONE,UP_ARROW
+        NONE,UP_ARROW,DOWN_ARROW,
     }
     public enum AttackType
     {
-        NORMAL,JUMPING
+        NORMAL,JUMPING,AIR_SLAM_LOOP,AIR_SLAM_LAND
     }
+
+#if UNITY_EDITOR
+    [SerializeField] bool _debug;
+#endif
+    public float SlamSpeed;
     public ComboList PlayerCombos => _comboList;
     public ComboList PlayerAirCombos => _airComboList;
+    public LayerMask enemyLayer;
+    [SerializeField] float attackRange;
+    [SerializeField] int attackDamage;
+    public Sprite playerHitSprite;
     [SerializeField] PlayerMovement _playerMovement;
     [SerializeField] PlayerController _playerController;
     [SerializeField] AnimationManager _animMan;
     [SerializeField] ComboList _comboList;
     [SerializeField] ComboList _airComboList;
-    //private Collider2D
+
+    [Header("Attacks positions")]
 
     [SerializeField] Transform _attackPos;
     [SerializeField] Transform _jumpAttackPos;
+    [SerializeField] Transform _airSlamLoopAttackPos;
+    [SerializeField] Transform _airSlamLandingAttackPos;
+    [Header("Attacks sizes")]
     [SerializeField] Vector2 _jumpAttackSize;
-    public LayerMask enemyLayer;
-    public float attackRange;
-    public int attackDamage;
-    public Sprite playerHitSprite;
+    [SerializeField] Vector2 _airSlamLoopAttackSize;
+    [SerializeField] Vector2 _airSlamLandingAttackSize;
+
     private Coroutine airAttackCor;
     private Coroutine playerMovAirAttackCor;
     // Start is called before the first frame update
@@ -63,6 +75,8 @@ public class PlayerCombat : MonoBehaviour
         {
             case AttackType.NORMAL: hitEnemies = Physics2D.OverlapCircleAll(_attackPos.position, attackRange, enemyLayer).ToList(); break;
             case AttackType.JUMPING: hitEnemies = Physics2D.OverlapBoxAll(_attackPos.position, _jumpAttackSize, enemyLayer).ToList(); break;
+            case AttackType.AIR_SLAM_LOOP: hitEnemies = Physics2D.OverlapBoxAll(_airSlamLoopAttackPos.position, _airSlamLoopAttackSize, enemyLayer).ToList(); break;
+            case AttackType.AIR_SLAM_LAND: hitEnemies = Physics2D.OverlapBoxAll(_airSlamLandingAttackPos.position, _airSlamLandingAttackSize, enemyLayer).ToList(); break;
         }
 
         
@@ -123,7 +137,12 @@ public class PlayerCombat : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        if (_attackPos != null) Gizmos.DrawWireSphere(_attackPos.position, attackRange);
-        if (_jumpAttackPos != null) Gizmos.DrawWireCube(_jumpAttackPos.position, _jumpAttackSize);
+        if (_debug)
+        {
+            if (_attackPos != null) Gizmos.DrawWireSphere(_attackPos.position, attackRange);
+            if (_jumpAttackPos != null) Gizmos.DrawWireCube(_jumpAttackPos.position, _jumpAttackSize);
+            if (_airSlamLoopAttackPos != null) Gizmos.DrawWireCube(_airSlamLoopAttackPos.position, _airSlamLoopAttackSize);
+            if (_airSlamLandingAttackPos != null) Gizmos.DrawWireCube(_airSlamLandingAttackPos.position, _airSlamLandingAttackSize);
+        }
     }
 }

@@ -67,6 +67,10 @@ public class PlayerMovement : MonoBehaviour
     {
         _rb.velocity = new Vector3(FlipSide * _dodgeSpeed, _rb.velocity.y, 0);
     }
+    public void MoveRB(Vector2 pos)
+    {
+        _rb.MovePosition(pos);
+    }
     public void PushPlayer(Vector3 PushForce, IPlayerPusher playerPusher)
     {
         StopPlayer();
@@ -80,6 +84,10 @@ public class PlayerMovement : MonoBehaviour
     {
         if(isdynamic) _rb.bodyType=RigidbodyType2D.Dynamic;
         else _rb.bodyType = RigidbodyType2D.Kinematic;
+    }
+    public void SetRBVelocity(Vector2 velocity)
+    {
+        _rb.velocity=velocity;
     }
     public void PushPlayer(playerDirection pushDirection, Vector3 PushForce, IPlayerPusher playerPusher)
     {

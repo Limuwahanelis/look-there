@@ -50,7 +50,7 @@ MonoBehaviour:
     speed: 1
     layer: 0
   - name: Jump Attack
-    duration: 0.43333334
+    duration: 0.51666665
     speed: 1
     layer: 0
   - name: Attack1
@@ -75,6 +75,18 @@ MonoBehaviour:
     layer: 0
   - name: Air Attack3
     duration: 0.26666668
+    speed: 1
+    layer: 0
+  - name: Air Slam Finish
+    duration: 0.51666665
+    speed: 1
+    layer: 0
+  - name: Air Slam Loop
+    duration: 0.16666667
+    speed: 1
+    layer: 0
+  - name: Air Slam Start
+    duration: 0.3166667
     speed: 1
     layer: 0
   animatorController: {fileID: 9100000, guid: 04a28c8199290124c925dcea322c3600, type: 2}

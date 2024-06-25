@@ -38,6 +38,11 @@ public class PlayerInAirState : PlayerState
     }
     public override void Attack(PlayerCombat.AttackModifiers modifier)
     {
+        if (modifier == PlayerCombat.AttackModifiers.DOWN_ARROW)
+        {
+            ChangeState(PlayerAirSlammingState.StateType);
+            return;
+        }
         if(_context.canPerformAirCombo) ChangeState(PlayerInAirAttackingState.StateType);
     }
     public override void InterruptState()

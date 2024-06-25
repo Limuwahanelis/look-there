@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _associatedAnimation: {fileID: 7400000, guid: 9716931fb304e66479593db241576666, type: 2}
   _useFrames: 1
-  _nextAttackWindowStart: 0
-  _nextAttackWindowEnd: 0
-  _nextAttackWindowStartFrame: 0
-  _nextAttackWindowEndFrame: 0
+  _nextAttackWindowStart: 0.083333336
+  _nextAttackWindowEnd: 0.25
+  _nextAttackWindowStartFrame: 5
+  _nextAttackWindowEndFrame: 15

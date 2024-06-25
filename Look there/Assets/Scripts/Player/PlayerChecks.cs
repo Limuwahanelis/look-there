@@ -25,10 +25,11 @@ public class PlayerChecks : MonoBehaviour
     private bool _isOnGround;
     private bool _isNearCeiling;
     private bool _isNearWall;
+    private bool _isRayHittingGround;
     public bool IsOnGround => _isOnGround;
     public bool IsNearCeiling => _isNearCeiling;
     public bool IsNearWall => _isNearWall;
-
+    public bool IsRay=>_isRayHittingGround;
     // Start is called before the first frame update
     void Start()
     {
@@ -38,6 +39,15 @@ public class PlayerChecks : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        RaycastHit2D hit=Physics2D.BoxCast(transform.position, new Vector2(groundCheckWidth, groundCheckHeight), 0, -transform.up, 1.26f,ground);
+        if(hit)
+        {
+            _isRayHittingGround = true;
+        }
+        else
+        {
+            _isRayHittingGround = false;
+        }
 
         _isOnGround = Physics2D.OverlapBox(groundCheckPos.position, new Vector2(groundCheckWidth, groundCheckHeight), 0, ground);
         //_potentialWallCol = Physics2D.OverlapBox(wallCheckPos.position, new Vector2(WallCheckWidth, WallCheckHeight), 0, ground);
@@ -79,7 +89,7 @@ public class PlayerChecks : MonoBehaviour
         if (ceilingCheckPos != null) Gizmos.DrawWireCube(ceilingCheckPos.position, new Vector3(ceilingCheckWidth, ceilingCheckHeight));
         if (groundCheckPos != null) Gizmos.DrawWireCube(groundCheckPos.position, new Vector3(groundCheckWidth, groundCheckHeight));
         if (slideColWallCheck != null) Gizmos.DrawWireCube(slideColWallCheck.position, new Vector3(slideColWallCheckWidth, slideColWallkHeight));
-
+        Gizmos.DrawRay(transform.position, -transform.up * 1.4f);
     }
 
 }
