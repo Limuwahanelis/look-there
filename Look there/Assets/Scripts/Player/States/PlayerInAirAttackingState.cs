@@ -5,13 +5,15 @@ using UnityEngine;
 
 public class PlayerInAirAttackingState : PlayerState
 {
-    private int _comboCounter = 1;
-    private float _time;
     private bool _nextAttack;
+    private bool _changeToSlam;
+    private int _comboCounter = 1;
     private int _maxCombo = 3;
     private float _comboEndWindow;
     private float _comboStartWindow;
-    private bool _changeToSlam;
+    private float _time;
+    private float _attackDamageStartWindow;
+    private float _attackDamageEndWindow;
     private Coroutine _attackCor;
     public static Type StateType { get => typeof(PlayerInAirAttackingState); }
     public PlayerInAirAttackingState(GetState function) : base(function)

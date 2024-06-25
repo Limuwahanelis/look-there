@@ -28,12 +28,10 @@ public class PlayerAirSlammingState : PlayerState
                 _context.animationManager.PlayAnimation("Air Slam Loop");
                 _slamStep++;
             }
-            if (_context.checks.IsOnGround)
+            if (_context.checks.IsOnGround||_context.checks.IsRay)
             {
                 _context.playerMovement.StopPlayer();
                 _context.playerMovement.SetRB(true);
-                //Debug.Break();
-                Logger.Log("Stop");
                 _context.animationManager.PlayAnimation("Air Slam Finish");
                 _animTime = _context.animationManager.GetAnimationLength("Air Slam Finish");
                 _slamStep=3;

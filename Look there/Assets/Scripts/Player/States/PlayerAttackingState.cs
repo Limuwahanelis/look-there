@@ -12,6 +12,12 @@ public class PlayerAttackingState : PlayerState
     private int _maxCombo = 3;
     private float _comboEndWindow;
     private float _comboStartWindow;
+    private float _attackDamageStartWindow;
+    private float _attackDamageEndWindow;
+    private float _animSpeed;
+    private bool _isDealingDmg;
+    private bool _chackForDmg = true;
+    private ComboAttack _currentAttack;
     private Coroutine _attackCor;
     public static Type StateType { get => typeof(PlayerAttackingState); }
     public PlayerAttackingState(GetState function) : base(function)
@@ -21,6 +27,28 @@ public class PlayerAttackingState : PlayerState
     public override void Update()
     {
         _time += Time.deltaTime;
+        if (_chackForDmg)
+        {
+            if (!_isDealingDmg)
+            {
+                if (_time > _attackDamageStartWindow)
+                {
+                    _attackCor = _context.coroutineHolder.StartCoroutine(_context.combat.AttackCor(PlayerCombat.AttackType.NORMAL));
+                    _isDealingDmg = true;
+                }
+            }
+            else
+            {
+                if (_time > _attackDamageEndWindow)
+                {
+                    _context.coroutineHolder.StopCoroutine(_attackCor);
+                    Logger.Log("End att");
+                    _attackCor = null;
+                    _chackForDmg = false;
+                }
+            }
+        }
+
         if (_nextAttack)
         {
             if(_time >= _comboStartWindow)
@@ -31,12 +59,9 @@ public class PlayerAttackingState : PlayerState
                 {
                     _comboCounter = 1;
                 }
-                _context.coroutineHolder.StopCoroutine(_attackCor);
-                _attackCor = null;
                 _context.animationManager.PlayAnimation($"Attack{_comboCounter}");
                 _comboStartWindow = _context.combat.PlayerCombos.comboList[_comboCounter - 1].AttackWindowStart / _context.animationManager.GetAnimationSpeed("Attack" + _comboCounter, "Base Layer");
                 _comboEndWindow = _context.combat.PlayerCombos.comboList[_comboCounter - 1].AttackWindowEnd / _context.animationManager.GetAnimationSpeed("Attack" + _comboCounter, "Base Layer");
-                _attackCor=_context.coroutineHolder.StartCoroutine(_context.combat.AttackCor(PlayerCombat.AttackType.NORMAL));
                 _nextAttack = false;
             }
         }
@@ -49,16 +74,22 @@ public class PlayerAttackingState : PlayerState
     public override void SetUpState(PlayerContext context)
     {
         base.SetUpState(context);
-        _attackCor = null;
-        _context.playerMovement.StopPlayer();
+
         _comboCounter = 1;
+        _isDealingDmg = false;
         _time = 0;
         _nextAttack = false;
+        _attackCor = null;
+        _chackForDmg = true;
+        _context.playerMovement.StopPlayer();
         _context.animationManager.PlayAnimation("Attack1");
-        //_attackTime = _context.animationManager.GetAnimationLength("Attack1");
-        _comboStartWindow = _context.combat.PlayerCombos.comboList[_comboCounter - 1].AttackWindowStart / _context.animationManager.GetAnimationSpeed("Attack" + _comboCounter, "Base Layer");
-        _comboEndWindow = _context.combat.PlayerCombos.comboList[_comboCounter - 1].AttackWindowEnd / _context.animationManager.GetAnimationSpeed("Attack" + _comboCounter, "Base Layer");
-        _attackCor = _context.coroutineHolder.StartCoroutine(_context.combat.AttackCor(PlayerCombat.AttackType.NORMAL));
+        _animSpeed = _context.animationManager.GetAnimationSpeed("Attack" + _comboCounter, "Base Layer");
+        _currentAttack = _context.combat.PlayerCombos.comboList[_comboCounter - 1];
+        _comboStartWindow = _currentAttack.AttackWindowStart / _animSpeed;
+        _comboEndWindow = _currentAttack.AttackWindowEnd / _animSpeed;
+        _attackDamageStartWindow = _currentAttack.AttackDamageWindowStart / _animSpeed;
+        _attackDamageEndWindow = _currentAttack.AttackDamageWindowEnd / _animSpeed;
+        //_attackCor = _context.coroutineHolder.StartCoroutine(_context.combat.AttackCor(PlayerCombat.AttackType.NORMAL));
     }
     public override void Dodge()
     {
@@ -70,7 +101,7 @@ public class PlayerAttackingState : PlayerState
     }
     public override void InterruptState()
     {
-        _context.coroutineHolder.StopCoroutine(_attackCor);
+        if(_attackCor!=null) _context.coroutineHolder.StopCoroutine(_attackCor);
         _attackCor = null;
     }
 }

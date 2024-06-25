@@ -18,3 +18,7 @@ MonoBehaviour:
   _nextAttackWindowEnd: 0.51666665
   _nextAttackWindowStartFrame: 17
   _nextAttackWindowEndFrame: 30
+  _attackDamageStartFrame: 0
+  _attackDamageEndFrame: 17
+  _attackDamageStart: 0
+  _attackDamageEnd: 0.29277778
