@@ -3133,6 +3133,7 @@ MonoBehaviour:
   _maxSpeed: 9
   _force: 10
   _objectToFollow: {fileID: 1887915689}
+  _comboWindowTime: 0.4
 --- !u!212 &1127909812
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -19443,7 +19444,7 @@ Transform:
   m_GameObject: {fileID: 1887915689}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.4, y: -6.53, z: 0}
+  m_LocalPosition: {x: -5.81, y: -6.53, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
