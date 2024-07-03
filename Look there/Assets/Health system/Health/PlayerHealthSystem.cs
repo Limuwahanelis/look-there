@@ -20,7 +20,7 @@ public class PlayerHealthSystem : HealthSystem,IPushable
     private bool _canBePushed=true;
     private DamageType _invincibiltyType;
     private DamageType _pushInvincibiltyType;
-    private IPlayerPusher _playerPusher;
+    private IPusher _playerPusher;
     public PlayerController player;
     [SerializeField] PlayerMovement _playerMovement;
     public Ringhandle pushHandle;
@@ -58,7 +58,7 @@ public class PlayerHealthSystem : HealthSystem,IPushable
         if (OnDeathEvent == null) Destroy(gameObject);
         else OnDeathEvent.Invoke();
     }
-    IEnumerator PushCor(IPlayerPusher pusher)
+    IEnumerator PushCor(IPusher pusher)
     {
         _canBePushed = false;
         yield return new WaitForSeconds(_invincibilityAfterHitDuration);
@@ -77,7 +77,7 @@ public class PlayerHealthSystem : HealthSystem,IPushable
         _pushInvincibiltyType = DamageType.NONE;
     }
 
-    public void Push(PlayerHealthSystem.DamageType damageType, IPlayerPusher pusher = null)
+    public void Push(PlayerHealthSystem.DamageType damageType, IPusher pusher = null)
     {
         if (player.IsAlive)
         {
@@ -96,7 +96,7 @@ public class PlayerHealthSystem : HealthSystem,IPushable
             StartCoroutine(PushCor(null));
         }
     }
-    public void Push(PlayerMovement.playerDirection direction, DamageType damageType, IPlayerPusher pusher)
+    public void Push(PlayerMovement.playerDirection direction, DamageType damageType, IPusher pusher)
     {
         if (player.IsAlive)
         {
