@@ -9,7 +9,9 @@ public class ComboAttack : ScriptableObject
     public float AttackWindowEnd => _nextAttackWindowEnd;
     public float AttackDamageWindowStart=>_attackDamageStart;
     public float AttackDamageWindowEnd => _attackDamageEnd;
+    public int Damage => _damage;
     [SerializeField] AnimationClip _associatedAnimation;
+    [SerializeField] int _damage;
     [SerializeField] bool _useFrames;
     [SerializeField] float _nextAttackWindowStart;
     [SerializeField] float _nextAttackWindowEnd;
