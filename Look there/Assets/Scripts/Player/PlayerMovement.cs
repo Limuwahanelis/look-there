@@ -71,7 +71,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _rb.MovePosition(pos);
     }
-    public void PushPlayer(Vector3 PushForce, IPlayerPusher playerPusher)
+    public void PushPlayer(Vector3 PushForce, IPusher playerPusher)
     {
         StopPlayer();
        // _player.currentState.Push(playerPusher, _playerCols);
@@ -89,7 +89,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _rb.velocity=velocity;
     }
-    public void PushPlayer(playerDirection pushDirection, Vector3 PushForce, IPlayerPusher playerPusher)
+    public void PushPlayer(playerDirection pushDirection, Vector3 PushForce, IPusher playerPusher)
     {
         StopPlayer();
         if (pushDirection == playerDirection.RIGHT)
