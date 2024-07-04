@@ -41,7 +41,7 @@ public class SkeletonController :EnemyController
 
         };
 
-        EnemyState newState = GetState(typeof(SkeletonStateIdle));
+        EnemyState newState = GetState(typeof(SkeletonStateWalk));
         newState.SetUpState(_context);
         _currentEnemyState = newState;
 

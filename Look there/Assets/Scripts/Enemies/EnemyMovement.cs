@@ -12,7 +12,7 @@ public class EnemyMovement : MonoBehaviour
     }
     public bool IsPlayerFalling { get => _rb.velocity.y < 0; }
     public Rigidbody2D RB => _rb;
-    public int FlipSide => _flipSide;
+    public GlobalEnums.HorizontalDirections FlipSide => (GlobalEnums.HorizontalDirections)_flipSide;
     private enemyDirection _newDirection;
     private enemyDirection _oldDirection;
     [SerializeField] float _speed;

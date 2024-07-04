@@ -20,10 +20,7 @@ public class SkeletonStateIdle : EnemyState
         _time += Time.deltaTime;
         if(_time > _idleTime) 
         {
-            if(Math.Abs( _context.playerTransform.position.x-_context.enemyTransform.position.x)>_context.maxPlayerDistance)
-            {
-                ChangeState(SkeletonStateWalk.StateType);
-            }
+           ChangeState(SkeletonStateWalk.StateType);
         }
     }
 
@@ -32,7 +29,7 @@ public class SkeletonStateIdle : EnemyState
         base.SetUpState(context);
         _context = (SkeletonContext)context;
         _context.animMan.PlayAnimation("Idle");
-
+        _time = 0;
         _idleTime = _context.animMan.GetAnimationLength("Idle");
     }
 

@@ -32,8 +32,20 @@ public class SkeletonStateAttack : EnemyState
         if (_comboCounter == 1) AttackCheck(SkeletonCombat.AttackType.SLASH);
         else AttackCheck(SkeletonCombat.AttackType.STAB);
 
-        if (Math.Abs(_context.playerTransform.position.x - _context.enemyTransform.position.x) < _context.maxPlayerDistance) _nextAttack = true;
-        else _nextAttack = false;
+        if(_context.enemyMovement.FlipSide==GlobalEnums.HorizontalDirections.RIGHT)
+        {
+            if(_context.playerTransform.position.x< _context.enemyTransform.position.x) _nextAttack = false;
+            else if (_context.playerTransform.position.x <_context.enemyTransform.position.x+ _context.maxPlayerDistance) _nextAttack = true;
+            else _nextAttack = false;
+        }
+        else
+        {
+            if (_context.playerTransform.position.x > _context.enemyTransform.position.x) _nextAttack = false;
+            else if (_context.playerTransform.position.x > _context.enemyTransform.position.x - _context.maxPlayerDistance) _nextAttack = true;
+            else _nextAttack = false;
+        }
+        
+        
 
         if (_nextAttack)
         {
