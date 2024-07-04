@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] PlayerChecks _playerChecks;
     [SerializeField] PlayerCombat _playerCombat;
     [SerializeField] PlayerCollisions _playerCollisions;
+    [SerializeField] PlayerDodge _playerDodge;
     private PlayerState _currentPlayerState;
     private PlayerContext _context;
     private Dictionary<Type, PlayerState> playerStates = new Dictionary<Type, PlayerState>();
@@ -38,6 +39,7 @@ public class PlayerController : MonoBehaviour
             combat = _playerCombat,
             canPerformAirCombo = true,
             collisions = _playerCollisions,
+            playerDodge = _playerDodge,
         };
         PlayerState.GetState getState = GetState;
         foreach (Type state in states)

@@ -14,4 +14,5 @@ public class PlayerContext
     public PlayerCombat combat;
     public PlayerCollisions collisions;
     public bool canPerformAirCombo;
+    public PlayerDodge playerDodge;
 }

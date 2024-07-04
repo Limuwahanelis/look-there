@@ -20,6 +20,7 @@ public class PlayerDodgingState : PlayerState
         {
             _context.playerMovement.StopPlayer();
             ChangeState(PlayerIdleState.StateType);
+            _context.playerDodge.SetEnemyCollider(true);
         }
     }
 
@@ -32,6 +33,7 @@ public class PlayerDodgingState : PlayerState
         Logger.Log(_time);
         _context.animationManager.PlayAnimation("Dodge");
         _context.playerMovement.Dodge();
+        _context.playerDodge.SetEnemyCollider(false);
     }
 
     public override void InterruptState()
