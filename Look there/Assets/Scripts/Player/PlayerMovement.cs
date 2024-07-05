@@ -11,6 +11,10 @@ public class PlayerMovement : MonoBehaviour
         SAME = 0,
         RIGHT = 1
     }
+    public enum PhysicMaterialType
+    {
+        NONE,NO_FRICTION
+    }
     public float DodgeSpeed=>_dodgeSpeed;
     public bool IsPlayerFalling { get=>_rb.velocity.y<0; }
     public Rigidbody2D PlayerRB =>_rb;
@@ -22,6 +26,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] Rigidbody2D _rb;
     [SerializeField] PlayerController _player;
     [SerializeField] float _dodgeSpeed;
+    [SerializeField] PhysicsMaterial2D _noFrictionMat;
+    [Header("Push")]
+    [SerializeField] Ringhandle _pushHandle;
+    [SerializeField] float _pushForce;
     private float _previousDirection;
     private int _flipSide = 1;
     public void Move(float direction)
@@ -71,14 +79,14 @@ public class PlayerMovement : MonoBehaviour
     {
         _rb.MovePosition(pos);
     }
-    public void PushPlayer(Vector3 PushForce, IPusher playerPusher)
+
+    public void SetRBMaterial(PhysicMaterialType type)
     {
-        StopPlayer();
-       // _player.currentState.Push(playerPusher, _playerCols);
-        _rb.AddForce(PushForce, ForceMode2D.Impulse);
-
-        //StartCoroutine(PushCor());
-
+        switch(type)
+        {
+            case PhysicMaterialType.NONE: _rb.sharedMaterial = null; break;
+            case PhysicMaterialType.NO_FRICTION: _rb.sharedMaterial = _noFrictionMat;break;
+        }
     }
     public void SetRB(bool isdynamic)
     {
@@ -88,6 +96,16 @@ public class PlayerMovement : MonoBehaviour
     public void SetRBVelocity(Vector2 velocity)
     {
         _rb.velocity=velocity;
+    }
+    public void PushPlayer(Vector3 pushForce, IPusher playerPusher)
+    {
+        StopPlayer();
+        if (pushForce == Vector3.zero) pushForce = _pushHandle.GetVector();
+        // _player.currentState.Push(playerPusher, _playerCols);
+        _rb.AddForce(pushForce*_pushForce, ForceMode2D.Impulse);
+
+        //StartCoroutine(PushCor());
+
     }
     public void PushPlayer(playerDirection pushDirection, Vector3 PushForce, IPusher playerPusher)
     {
