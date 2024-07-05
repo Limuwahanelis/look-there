@@ -25,6 +25,7 @@ public class PlayerCombat : MonoBehaviour
     public LayerMask enemyLayer;
     [SerializeField] float attackRange;
     [SerializeField] int attackDamage;
+    [SerializeField] SpriteRenderer _spriteRenderer;
     public Sprite playerHitSprite;
     [SerializeField] PlayerMovement _playerMovement;
     [SerializeField] PlayerController _playerController;
@@ -70,7 +71,7 @@ public class PlayerCombat : MonoBehaviour
     }
     public void ChangeSpriteToPushed()
     {
-        GetComponentInChildren<SpriteRenderer>().sprite = playerHitSprite;
+        _spriteRenderer.sprite = playerHitSprite;
     }
     public IEnumerator AttackCor(AttackType attackType)
     {
