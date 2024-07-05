@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -19,12 +20,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] PlayerCombat _playerCombat;
     [SerializeField] PlayerCollisions _playerCollisions;
     [SerializeField] PlayerDodge _playerDodge;
+    [SerializeField] PlayerHealthSystem _playerHealthSystem;
     private PlayerState _currentPlayerState;
     private PlayerContext _context;
     private Dictionary<Type, PlayerState> playerStates = new Dictionary<Type, PlayerState>();
     private bool _isAlive=true;
     void Start()
     {
+        _playerHealthSystem.OnPushed += PushPlayer;
         List<Type> states = AppDomain.CurrentDomain.GetAssemblies().SelectMany(domainAssembly => domainAssembly.GetTypes())
             .Where(type => typeof(PlayerState).IsAssignableFrom(type) && !type.IsAbstract).ToArray().ToList();
 
@@ -34,6 +37,7 @@ public class PlayerController : MonoBehaviour
             animationManager = _playerAnimationManager,
             playerMovement = _playerMovement,
             WaitAndPerformFunction = WaitAndExecuteFunction,
+            WaitFrameAndPerformFunction = WaitFrameAndExecuteFunction,
             coroutineHolder = this,
             checks = _playerChecks,
             combat = _playerCombat,
@@ -69,13 +73,32 @@ public class PlayerController : MonoBehaviour
         _currentPlayerState.InterruptState();
         _currentPlayerState = newState;
     }
+    public void PushPlayer(Vector3 pushDIrection, IPusher pusher)
+    {
+        _playerMovement.PushPlayer(pushDIrection, pusher);
+        _currentPlayerState.Push();
+    }
     public Coroutine WaitAndExecuteFunction(float timeToWait, Action function)
     {
         return StartCoroutine(DelyedFunction( timeToWait, function));
+    }
+    public Coroutine WaitFrameAndExecuteFunction(Action function)
+    {
+        return StartCoroutine( WaitFrame(function));
     }
     public IEnumerator DelyedFunction(float timeToWait, Action function)
     {
         yield return new WaitForSeconds(timeToWait);
         function();
+    }
+    public IEnumerator WaitFrame(Action function)
+    {
+        yield return new WaitForNextFrameUnit();
+        function();
+    }
+
+    private void OnDestroy()
+    {
+        _playerHealthSystem.OnPushed -= PushPlayer;
     }
 }
