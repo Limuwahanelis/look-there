@@ -16,7 +16,7 @@ public class PlayerIdleState : PlayerState
     }
     public override void Move(Vector2 direction)
     {
-        if(Math.Abs( direction.x) >0) ChangeState(PlayerWalkingState.StateType);
+        if (Math.Abs(direction.x) > 0) ChangeState(PlayerWalkingState.StateType);
     }
     public override void SetUpState(PlayerContext context)
     {
@@ -42,6 +42,6 @@ public class PlayerIdleState : PlayerState
     }
     public override void InterruptState()
     {
-     
+        
     }
 }
