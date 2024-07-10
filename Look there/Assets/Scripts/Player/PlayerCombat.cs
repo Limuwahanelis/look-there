@@ -79,9 +79,9 @@ public class PlayerCombat : MonoBehaviour
         switch (attackType)
         {
             case AttackType.NORMAL: hitEnemies = Physics2D.OverlapCircleAll(_attackPos.position, attackRange, enemyLayer).ToList(); break;
-            case AttackType.JUMPING: hitEnemies = Physics2D.OverlapBoxAll(_attackPos.position, _jumpAttackSize, enemyLayer).ToList(); break;
-            case AttackType.AIR_SLAM_LOOP: hitEnemies = Physics2D.OverlapBoxAll(_airSlamLoopAttackPos.position, _airSlamLoopAttackSize, enemyLayer).ToList(); break;
-            case AttackType.AIR_SLAM_LAND: hitEnemies = Physics2D.OverlapBoxAll(_airSlamLandingAttackPos.position, _airSlamLandingAttackSize, enemyLayer).ToList(); break;
+            case AttackType.JUMPING: hitEnemies = Physics2D.OverlapBoxAll(_attackPos.position, _jumpAttackSize, 0,enemyLayer).ToList(); break;
+            case AttackType.AIR_SLAM_LOOP: hitEnemies = Physics2D.OverlapBoxAll(_airSlamLoopAttackPos.position, _airSlamLoopAttackSize, 0,enemyLayer).ToList(); break;
+            case AttackType.AIR_SLAM_LAND: hitEnemies = Physics2D.OverlapBoxAll(_airSlamLandingAttackPos.position, _airSlamLandingAttackSize, 0,enemyLayer).ToList(); break;
         }
 
         
@@ -98,7 +98,7 @@ public class PlayerCombat : MonoBehaviour
             switch (attackType)
             {
                 case AttackType.NORMAL: colliders = Physics2D.OverlapCircleAll(_attackPos.position, attackRange, enemyLayer); break;
-                case AttackType.JUMPING: colliders = Physics2D.OverlapBoxAll(_attackPos.position, _jumpAttackSize, enemyLayer); break;
+                case AttackType.JUMPING: colliders = Physics2D.OverlapBoxAll(_attackPos.position, _jumpAttackSize, 0, enemyLayer); break;
             }
             for (int i = 0; i < colliders.Length; i++)
             {
