@@ -46,6 +46,7 @@ public class SkeletonController :EnemyController
         _currentEnemyState = newState;
 
         _healthSystem.OnHitEvent += _currentEnemyState.Hit;
+        _healthSystem.OnDeathEvent += OnDeath;
     }
 
     // Update is called once per frame
@@ -53,9 +54,16 @@ public class SkeletonController :EnemyController
     {
         _currentEnemyState?.Update();
     }
+    private void OnDeath()
+    {
+        EnemyState newState = GetState(typeof(SkeletonStateDead));
+        ChangeState(newState);
+        newState.SetUpState(_context);
+    }
     private void OnDestroy()
     {
         _healthSystem.OnHitEvent -= _currentEnemyState.Hit;
+        _healthSystem.OnDeathEvent -= OnDeath;
     }
 
     private void OnDrawGizmos()
