@@ -5,6 +5,7 @@ using UnityEditor.Animations;
 #endif
 using UnityEngine;
 using System;
+using System.Linq;
 [RequireComponent(typeof(Animator))]
 public class AnimationManager : MonoBehaviour
 {
@@ -98,6 +99,12 @@ public class AnimationManager : MonoBehaviour
         clipDuration = animList.animations.Find(x => x.name == name && x.layer == layer).duration;
         return clipDuration;
     }
+#if UNITY_EDITOR
+    public float GetAnimationSpeedEditor(string name, int layer = 0)
+    {
+        return animatorController.layers[layer].stateMachine.states.ToList().Find(x => x.state.name == name).state.speed;
+    }
+#endif
     public float GetAnimationSpeed(string name,int layer=0)
     {
         if (name == "Empty") return 0;
