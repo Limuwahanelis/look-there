@@ -16,7 +16,7 @@ public class PlayerDodgingState : PlayerState
     public override void Update()
     {
         _time += Time.deltaTime;
-        if (_time >= 0.5f)
+        if (_time >= _dodgeTime)
         {
             _context.playerMovement.StopPlayer();
             ChangeState(PlayerIdleState.StateType);
@@ -27,10 +27,16 @@ public class PlayerDodgingState : PlayerState
     public override void SetUpState(PlayerContext context)
     {
         base.SetUpState(context);
-        _dodgeTime = _context.animationManager.GetAnimationLength("Dodge");
+        _dodgeTime = _context.animationManager.GetAnimationLength("Dodge");///_context.animationManager.GetAnimationSpeed("Dodge");
+
+#if UNITY_EDITOR
+        _dodgeTime /= _context.animationManager.GetAnimationSpeedEditor("Dodge");
+#else 
+        _dodgeTime /= _context.animationManager.GetAnimationSpeed("Dodge");
+#endif
         Logger.Log("doge start");
         _time = 0;
-        Logger.Log(_time);
+        Logger.Log(_dodgeTime);
         _context.animationManager.PlayAnimation("Dodge");
         _context.playerMovement.Dodge();
         _context.playerDodge.SetEnemyCollider(false);
