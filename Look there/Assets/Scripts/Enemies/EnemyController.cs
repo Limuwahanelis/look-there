@@ -7,9 +7,8 @@ using UnityEngine;
 public abstract class EnemyController : MonoBehaviour
 {
     [Header("Debug"), SerializeField] bool _printState;
-
     public GameObject MainBody=>_mainBody;
-    [SerializeField] protected AnimationManager _enemyAnimationManager;
+    [SerializeField, Space] protected AnimationManager _enemyAnimationManager;
     [SerializeField] protected HealthSystem _healthSystem;
     [SerializeField] protected Transform _playerTransform;
     [SerializeField] protected GameObject _mainBody;
