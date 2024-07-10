@@ -24,6 +24,7 @@ public abstract class EnemyState
     public virtual void Attack(PlayerCombat.AttackModifiers modifier = PlayerCombat.AttackModifiers.NONE) { }
 
     public virtual void Hit(DamageInfo damageInfo) { ChangeState(_enemyContext.enemyHitState.GetType()); }
+
     public abstract void InterruptState();
     public void ChangeState(Type newStateType)
     {
