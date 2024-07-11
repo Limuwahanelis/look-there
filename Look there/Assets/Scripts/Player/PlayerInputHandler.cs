@@ -10,9 +10,7 @@ public class PlayerInputHandler : MonoBehaviour
     [SerializeField] InputActionAsset _controls;
     [SerializeField] PlayerWarpSkill _warpSkill;
     [SerializeField] bool _useCommands;
-    [SerializeField] float _commandMaxLife;
     [SerializeField] PlayerInputStack _inputStack;
-    private float _commandLifetime = 0;
     //private PlayerInteract _playerInteract;
     private bool isDownArrowPressed;
     private Vector2 _direction;
