@@ -9,9 +9,13 @@ public class PlayerInputHandler : MonoBehaviour
     [SerializeField] PlayerController _player;
     [SerializeField] InputActionAsset _controls;
     [SerializeField] PlayerWarpSkill _warpSkill;
+    [SerializeField] bool _useCommands;
+    [SerializeField] float _commandMaxLife;
+    [SerializeField] PlayerInputStack _inputStack;
+    private float _commandLifetime = 0;
     //private PlayerInteract _playerInteract;
     private bool isDownArrowPressed;
-    private Vector2 direction;
+    private Vector2 _direction;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,35 +28,48 @@ public class PlayerInputHandler : MonoBehaviour
     {
         if (_player.IsAlive)
         {
+
             if (!GlobalSettings.IsGamePaused)
             {
-                _player.CurrentPlayerState.Move(direction);
+                 _player.CurrentPlayerState.Move(_direction);
 
             }
         }
     }
     private void OnMove(InputValue value)
     {
-        direction = value.Get<Vector2>();
+        _direction = value.Get<Vector2>();
+        
     }
     void OnJump(InputValue value)
     {
         if (GlobalSettings.IsGamePaused) return;
+        if (_useCommands) _inputStack.CurrentCommand= new JumpInputCommand(_player.CurrentPlayerState);
+        else _player.CurrentPlayerState.Jump();
         //if (direction * _player.mainBody.transform.localScale.x > 0 && isDownArrowPressed) _player.currentState.Slide();
-         _player.CurrentPlayerState.Jump();
+
     }
     void OnVertical(InputValue value)
     {
-        direction = value.Get<Vector2>();
-        Debug.Log(direction);
+        _direction = value.Get<Vector2>();
+        Debug.Log(_direction);
     }
 
     private void OnAttack(InputValue value)
     {
-        if (GlobalSettings.IsGamePaused) return;
-        if(direction.y>0) _player.CurrentPlayerState.Attack(PlayerCombat.AttackModifiers.UP_ARROW);
-        if(direction.y<0) _player.CurrentPlayerState.Attack(PlayerCombat.AttackModifiers.DOWN_ARROW);
-        else _player.CurrentPlayerState.Attack();
+        if (_useCommands)
+        {
+            _inputStack.CurrentCommand = new AttackInputCommand(_player.CurrentPlayerState);
+            if (_direction.y > 0)  _inputStack.CurrentCommand = new AttackInputCommand(_player.CurrentPlayerState, PlayerCombat.AttackModifiers.UP_ARROW);
+            if (_direction.y < 0)  _inputStack.CurrentCommand = new AttackInputCommand(_player.CurrentPlayerState, PlayerCombat.AttackModifiers.DOWN_ARROW);
+        }
+        else
+        {
+            if (GlobalSettings.IsGamePaused) return;
+            if (_direction.y > 0) _player.CurrentPlayerState.Attack(PlayerCombat.AttackModifiers.UP_ARROW);
+            if (_direction.y < 0) _player.CurrentPlayerState.Attack(PlayerCombat.AttackModifiers.DOWN_ARROW);
+            else _player.CurrentPlayerState.Attack();
+        }
     }
 
     private void OnDownArrowModifier(InputValue value)

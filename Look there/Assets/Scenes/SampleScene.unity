@@ -20621,6 +20621,7 @@ GameObject:
   - component: {fileID: 1887915695}
   - component: {fileID: 1887915697}
   - component: {fileID: 1887915698}
+  - component: {fileID: 1887915702}
   - component: {fileID: 1887915699}
   - component: {fileID: 1887915700}
   - component: {fileID: 1887915701}
@@ -20806,6 +20807,9 @@ MonoBehaviour:
   _player: {fileID: 1887915694}
   _controls: {fileID: -944628639613478452, guid: 839f772f7f637cb48848d3298639247c, type: 3}
   _warpSkill: {fileID: 1887915699}
+  _useCommands: 1
+  _commandMaxLife: 0.2
+  _inputStack: {fileID: 1887915702}
 --- !u!114 &1887915699
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20866,6 +20870,20 @@ MonoBehaviour:
   player: {fileID: 1887915694}
   pushHandle: {fileID: 1589704701}
   pushForce: 2
+--- !u!114 &1887915702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1887915689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd86ea33c514d8946b81a305500b1d52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _commandMaxLife: 0.2
+  _playerController: {fileID: 1887915694}
 --- !u!1 &1992603240
 GameObject:
   m_ObjectHideFlags: 0

@@ -15,11 +15,12 @@ public class PlayerDodgingState : PlayerState
 
     public override void Update()
     {
+        PerformInputCommand();
         _time += Time.deltaTime;
         if (_time >= _dodgeTime)
         {
             _context.playerMovement.StopPlayer();
-            ChangeState(PlayerIdleState.StateType);
+                ChangeState(PlayerIdleState.StateType);
             _context.playerDodge.SetEnemyCollider(true);
         }
     }
@@ -42,11 +43,12 @@ public class PlayerDodgingState : PlayerState
         _context.playerDodge.SetEnemyCollider(false);
     }
 
-    public override void InterruptState()
-    {
-     
-    }
     public override void Dodge()
+    {
+        
+    }
+
+    public override void InterruptState()
     {
         
     }

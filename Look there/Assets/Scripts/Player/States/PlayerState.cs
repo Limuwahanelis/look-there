@@ -7,7 +7,8 @@ public abstract class PlayerState
     public delegate PlayerState GetState(Type state);
     protected PlayerContext _context;
     protected GetState _getType;
-    
+    protected InputCommand _inputCommand;
+
     public PlayerState(GetState function)
     {
         _getType = function;
@@ -30,5 +31,17 @@ public abstract class PlayerState
         PlayerState state = _getType(newStateType);
         _context.ChangePlayerState(state);
         state.SetUpState(_context);
+    }
+    public virtual void UndoComand() { }
+    public void SetInputCommand(ref InputCommand command)
+    {
+        _inputCommand = command;
+    }
+    protected bool PerformInputCommand()
+    {
+        if (_inputCommand == null) return false;
+        _inputCommand.Execute();
+        _inputCommand = null;
+        return true;
     }
 }

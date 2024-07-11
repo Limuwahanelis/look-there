@@ -14,7 +14,7 @@ public class PlayerJumpingState : PlayerState
 
     public override void Update()
     {
-
+        PerformInputCommand();
     }
 
     public override void SetUpState(PlayerContext context)
@@ -31,5 +31,10 @@ public class PlayerJumpingState : PlayerState
     public override void InterruptState()
     {
         _context.coroutineHolder.StopCoroutine(_jumpCor);
+    }
+
+    public override void UndoComand()
+    {
+      
     }
 }

@@ -6,7 +6,8 @@ using UnityEngine;
 public class PlayerJumpingAttackState : PlayerAttackState
 {
     private float _jumpAttackTime;
-    
+    private bool _performAirAttack;
+    private bool _performSlamAttack;
     public static Type StateType { get => typeof(PlayerJumpingAttackState); }
     public PlayerJumpingAttackState(GetState function) : base(function)
     {
@@ -18,11 +19,21 @@ public class PlayerJumpingAttackState : PlayerAttackState
         AttackCheck(PlayerCombat.AttackType.JUMPING);
         if(_time > _jumpAttackTime)
         {
-            _context.playerMovement.SetRB(true);
-            ChangeState(PlayerInAirState.StateType);
+            PerformInputCommand();
+            if (_performAirAttack) ChangeState(PlayerInAirAttackingState.StateType);
+            else if(_performSlamAttack) ChangeState(PlayerAirSlammingState.StateType);
+            else
+            {
+                _context.playerMovement.SetRB(true);
+                ChangeState(PlayerInAirState.StateType);
+            }
         }
     }
-
+    public override void Attack(PlayerCombat.AttackModifiers modifier = PlayerCombat.AttackModifiers.NONE)
+    {
+        if(modifier == PlayerCombat.AttackModifiers.DOWN_ARROW) _performSlamAttack = true;
+        else _performAirAttack = true;
+    }
     public override void SetUpState(PlayerContext context)
     {
         base.SetUpState(context);
@@ -37,9 +48,15 @@ public class PlayerJumpingAttackState : PlayerAttackState
 
         _time = 0;
     }
-
+    public override void UndoComand()
+    {
+        _performSlamAttack = false;
+        _performAirAttack = false;
+    }
     public override void InterruptState()
     {
+        _performAirAttack = false;
+        _performSlamAttack = false;
         _context.playerMovement.SetRB(true);
         if( _attackCor != null ) _context.coroutineHolder.StopCoroutine(_attackCor);
         _attackCor = null;
