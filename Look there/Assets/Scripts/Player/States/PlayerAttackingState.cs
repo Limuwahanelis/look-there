@@ -11,7 +11,7 @@ public class PlayerAttackingState : PlayerAttackState
     private int _maxCombo = 3;
     private float _comboEndWindow;
     private float _comboStartWindow;
-
+    private bool _performJumpingAttack = false;
     public static Type StateType { get => typeof(PlayerAttackingState); }
     public PlayerAttackingState(GetState function) : base(function)
     {
@@ -20,7 +20,7 @@ public class PlayerAttackingState : PlayerAttackState
     public override void Update()
     {
         _time += Time.deltaTime;
-
+        PerformInputCommand();
         AttackCheck(PlayerCombat.AttackType.NORMAL);
 
         if (_nextAttack)
@@ -31,6 +31,13 @@ public class PlayerAttackingState : PlayerAttackState
                 _comboCounter++;
                 if (_comboCounter > _maxCombo)
                 {
+                    if (_performJumpingAttack) 
+                    {
+                        ChangeState(PlayerIdleState.StateType);
+                        return;
+                    }
+
+                    
                     _comboCounter = 1;
                 }
                 _context.animationManager.PlayAnimation($"Attack{_comboCounter}");
@@ -74,7 +81,8 @@ public class PlayerAttackingState : PlayerAttackState
     }
     public override void Attack(PlayerCombat.AttackModifiers modifier)
     {
-            _nextAttack = true;
+        if (modifier == PlayerCombat.AttackModifiers.UP_ARROW) _performJumpingAttack = true;
+        _nextAttack = true;
     }
     public override void InterruptState()
     {

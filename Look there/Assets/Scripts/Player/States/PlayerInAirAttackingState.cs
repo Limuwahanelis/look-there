@@ -61,6 +61,7 @@ public class PlayerInAirAttackingState : PlayerAttackState
             }
             ChangeState(PlayerInAirState.StateType);
         }
+        PerformInputCommand();
     }
 
     public override void SetUpState(PlayerContext context)
