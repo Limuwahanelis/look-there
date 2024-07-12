@@ -8,7 +8,7 @@ public abstract class EnemyController : MonoBehaviour
 {
     [Header("Debug"), SerializeField] bool _printState;
     public GameObject MainBody=>_mainBody;
-    [SerializeField, Space] protected AnimationManager _enemyAnimationManager;
+    [Header("Enemy common"),SerializeField] protected AnimationManager _enemyAnimationManager;
     [SerializeField] protected HealthSystem _healthSystem;
     [SerializeField] protected Transform _playerTransform;
     [SerializeField] protected GameObject _mainBody;
