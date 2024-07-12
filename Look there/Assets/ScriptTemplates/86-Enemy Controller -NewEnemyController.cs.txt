@@ -7,7 +7,7 @@ using UnityEngine;
 public class #SCRIPTNAME# : EnemyController
 {
 
-    protected #ENEMYNAME# _context;
+    protected #ENEMYNAME#Context _context;
 
     void Start()
     {
