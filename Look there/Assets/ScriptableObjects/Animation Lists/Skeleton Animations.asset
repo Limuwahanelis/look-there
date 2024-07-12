@@ -13,28 +13,40 @@ MonoBehaviour:
   m_Name: Skeleton Animations
   m_EditorClassIdentifier: 
   animations:
-  - name: Attack1
-    duration: 0.84999996
-    speed: 1
-    layer: 0
-  - name: Attack2
-    duration: 0.68333334
-    speed: 1
-    layer: 0
   - name: Idle
-    duration: 0.84999996
-    speed: 1
-    layer: 0
-  - name: Hit
-    duration: 0.35000002
-    speed: 1
-    layer: 0
-  - name: Death
-    duration: 0.51666665
-    speed: 1
-    layer: 0
-  - name: Walk
     duration: 1.0166667
     speed: 1
     layer: 0
-  animatorController: {fileID: 9100000, guid: c527160609f36304eaaa61429a051498, type: 2}
+  - name: Idle cast
+    duration: 1.0166667
+    speed: 1
+    layer: 0
+  - name: Death
+    duration: 0.76666665
+    speed: 1
+    layer: 0
+  - name: Deatf fall loop
+    duration: 0.35000002
+    speed: 1
+    layer: 0
+  - name: Death landing
+    duration: 0.51666665
+    speed: 1
+    layer: 0
+  - name: Move hands down
+    duration: 0.51666665
+    speed: 1
+    layer: 0
+  - name: Hit
+    duration: 0.43333334
+    speed: 1
+    layer: 0
+  - name: Move cast
+    duration: 0.43333334
+    speed: 1
+    layer: 0
+  - name: Talk cast
+    duration: 0.43333334
+    speed: 1
+    layer: 0
+  animatorController: {fileID: 9100000, guid: ccb04eeb9e3db4049a909ac27be64ae7, type: 2}
