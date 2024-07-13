@@ -28,7 +28,10 @@ public class BoneMissile : MonoBehaviour,IDamagable
     {
         _angle += _rotationSpeed * Time.deltaTime;
         if (_angle > 360) _angle = 0;
-        _rb.rotation = _angle;
+
+        transform.rotation = Quaternion.AngleAxis(_angle, Vector3.forward);
+        //_rb.MoveRotation(_angle);
+        //_rb.rotation = _angle;
         if (_direction == Vector2.zero) return;
         _rb.MovePosition((_rb.position + _direction* _speed * Time.deltaTime));
     }
