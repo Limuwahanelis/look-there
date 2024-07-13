@@ -69,7 +69,7 @@ public class PlayerController : MonoBehaviour
     }
     public void ChangeState(PlayerState newState)
     {
-        if (_printState) Debug.Log(newState.GetType());
+        if (_printState) Logger.Log(newState.GetType());
         _currentPlayerState.InterruptState();
         _currentPlayerState = newState;
     }

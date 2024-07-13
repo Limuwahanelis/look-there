@@ -50,7 +50,7 @@ public class PlayerInputHandler : MonoBehaviour
     void OnVertical(InputValue value)
     {
         _direction = value.Get<Vector2>();
-        Debug.Log(_direction);
+        Logger.Log(_direction);
     }
 
     private void OnAttack(InputValue value)

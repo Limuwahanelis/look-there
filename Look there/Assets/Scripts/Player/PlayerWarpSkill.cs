@@ -54,7 +54,7 @@ public class PlayerWarpSkill : MonoBehaviour
         {
             hidePct = time/_timeToHideClone;
             float tmp = (float)math.remap(0, 1, -0.5, 0.5,1- hidePct);
-            Debug.Log(tmp);
+            Logger.Log(tmp);
             _spriteToSpawnInPlace.sharedMaterial.SetFloat("_HideValue", tmp);
             time+= Time.deltaTime;
             yield return null;

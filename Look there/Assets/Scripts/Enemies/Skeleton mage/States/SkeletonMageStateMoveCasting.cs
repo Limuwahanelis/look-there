@@ -37,7 +37,6 @@ public class SkeletonMageStateMoveCasting : EnemyState
                 return;
             }
         }
-        Logger.Log(_moveVector);
         if (Math.Abs(_moveVector.x) > 0.25) _context.animMan.PlayAnimation("Move cast");
         else _context.animMan.PlayAnimation("Idle cast");
         _context.enemyMovement.Move(_moveVector);

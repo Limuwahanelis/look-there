@@ -21,7 +21,7 @@ public abstract class EnemyController : MonoBehaviour
     }
     public void ChangeState(EnemyState newState)
     {
-        if (_printState) Debug.Log(newState.GetType());
+        if (_printState) Logger.Log(newState.GetType());
         _currentEnemyState.InterruptState();
         _currentEnemyState = newState;
     }

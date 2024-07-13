@@ -96,7 +96,7 @@ public class PlayerInAirAttackingState : PlayerAttackState
                 else _changeToSlam = false;
             }
             else _nextAttack = true;
-            Debug.Log("next");
+            Logger.Log("next");
         }
         else _nextAttack = false;
 

@@ -58,7 +58,7 @@ public class HealthBar : MonoBehaviour
         {
             _lazyHP -= Time.deltaTime * _lazyHPLostPerSecond;
             _lazyHP = math.clamp(_lazyHP, _currentHP, _maxHP);
-            Debug.Log(_lazyHP);
+            Logger.Log(_lazyHP);
             _propertyBlock.SetFloat("_LazyFillValue", _lazyHP / _maxHP);
             _renderer.SetPropertyBlock(_propertyBlock);
             yield return null;
