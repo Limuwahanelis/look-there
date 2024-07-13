@@ -140,6 +140,7 @@ public class PlayerCombat : MonoBehaviour
         }
     }
 
+#if UNITY_EDITOR
     private void OnDrawGizmos()
     {
         if (_debug)
@@ -150,4 +151,5 @@ public class PlayerCombat : MonoBehaviour
             if (_airSlamLandingAttackPos != null) Gizmos.DrawWireCube(_airSlamLandingAttackPos.position, _airSlamLandingAttackSize);
         }
     }
+#endif
 }
