@@ -81,6 +81,7 @@ public class SkeletonCombat : MonoBehaviour
             yield return null;
         }
     }
+#if UNITY_EDITOR
     private void OnDrawGizmos()
     {
         if (_debug)
@@ -89,4 +90,5 @@ public class SkeletonCombat : MonoBehaviour
             if (_stabAttackPos != null) Gizmos.DrawWireCube(_stabAttackPos.position, _stabAttackSize);
         }
     }
+#endif
 }
