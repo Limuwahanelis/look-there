@@ -8,7 +8,11 @@ public class SkeletonMageController : EnemyController
 {
     [Header("Skeleton mage"), SerializeField] float _boneCooldown;
     [SerializeField] BoneMissileSpawner _boneSpawner;
+    [SerializeField] SkeletonMageMovement _skeletonMageMovement;
+    [SerializeField] RotatingObjectsSpawner _rotatingBoneSpawner;
     [SerializeField] float _playerDetectionRange;
+    [SerializeField] float _moveFromPlayerDistance;
+    [SerializeField] float _moveToPlayerDistance;
     [SerializeField] float _boneBaseSpeed;
     protected SkeletonMageContext _context;
 
@@ -27,6 +31,10 @@ public class SkeletonMageController : EnemyController
             boneMissileCooldown = _boneCooldown,
             playerDetectionRange = _playerDetectionRange,
             boneSpeed = _boneBaseSpeed,
+            enemyMovement=_skeletonMageMovement,
+            moveFromPlayerDistance = _moveFromPlayerDistance,
+            moveToPlayerDistance = _moveToPlayerDistance,
+            rotatingObjectsSpawner=_rotatingBoneSpawner,
         };
         EnemyState.GetState getState = GetState;
         foreach (Type state in states)
@@ -41,5 +49,15 @@ public class SkeletonMageController : EnemyController
     void Update()
     {
         _currentEnemyState?.Update();
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere(transform.position, _playerDetectionRange);
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, _moveFromPlayerDistance);
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, _moveToPlayerDistance);
+        
     }
 }
