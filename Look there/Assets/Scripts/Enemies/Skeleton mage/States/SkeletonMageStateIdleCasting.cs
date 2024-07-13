@@ -9,6 +9,7 @@ public class SkeletonMageStateIdleCasting : EnemyState
     private SkeletonMageContext _context;
     private float _boneAttackTime;
     private int _spawnIndex = 0;
+    private bool _spawnedFirstBones;
     public SkeletonMageStateIdleCasting(GetState function) : base(function)
     {
     }
@@ -18,10 +19,20 @@ public class SkeletonMageStateIdleCasting : EnemyState
         _boneAttackTime += Time.deltaTime;
         if(_boneAttackTime>_context.boneMissileCooldown)
         {
-            _context.boneSpawner.SpawnBone(_spawnIndex, _context.playerTransform,_context.boneSpeed+ UnityEngine.Random.Range(-4,4));
-            _spawnIndex++;
-            if (_spawnIndex > 1) _spawnIndex = 0;
+            //_context.boneSpawner.SpawnBone(_spawnIndex, _context.playerTransform,_context.boneSpeed+ UnityEngine.Random.Range(-4,4));
+            //_spawnIndex++;
+            //if (_spawnIndex > 1) _spawnIndex = 0;
             _boneAttackTime = 0;
+        }
+        if(Vector2.Distance(_context.enemyTransform.position,_context.playerTransform.position)<_context.moveFromPlayerDistance)
+        {
+            ChangeState(SkeletonMageStateMoveCasting.StateType);
+            return;
+        }
+        if (Vector2.Distance(_context.enemyTransform.position, _context.playerTransform.position) > _context.moveToPlayerDistance)
+        {
+            ChangeState(SkeletonMageStateMoveCasting.StateType);
+            return;
         }
     }
 
@@ -30,8 +41,10 @@ public class SkeletonMageStateIdleCasting : EnemyState
         base.SetUpState(context);
         _context = (SkeletonMageContext)context;
         _context.animMan.PlayAnimation("Idle cast");
-        _context.boneSpawner.InitialSpawn(0);
-        _context.boneSpawner.InitialSpawn(1);
+        if (_spawnedFirstBones) return;
+        _context.rotatingObjectsSpawner.SpawnObject(0, _context.enemyTransform);
+        _context.rotatingObjectsSpawner.SpawnObject(1, _context.enemyTransform);
+        _spawnedFirstBones = true;
     }
 
     public override void InterruptState()
