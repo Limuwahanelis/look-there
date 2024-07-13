@@ -42,7 +42,7 @@ MonoBehaviour:
     speed: 1
     layer: 0
   - name: Move cast
-    duration: 0.43333334
+    duration: 0.68333334
     speed: 1
     layer: 0
   - name: Talk cast
