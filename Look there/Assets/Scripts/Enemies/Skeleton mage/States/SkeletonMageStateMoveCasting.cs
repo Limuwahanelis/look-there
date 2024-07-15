@@ -11,14 +11,22 @@ public class SkeletonMageStateMoveCasting : EnemyState
     private Vector2 _moveVector;
     private bool _isMovingFromPlayer;
     private bool _isMovingToPlayer;
+    private int _spawnIndex = 0;
     public SkeletonMageStateMoveCasting(GetState function) : base(function)
     {
     }
 
     public override void Update()
     {
-
-        if(_isMovingFromPlayer)
+        _context.boneAttackTime += Time.deltaTime;
+        if (_context.boneAttackTime > _context.boneMissileCooldown)
+        {
+            _context.boneSpawner.SpawnBone(_spawnIndex, _context.playerTransform, _context.boneSpeed.value + UnityEngine.Random.Range(-0.25f, 0.25f));
+            _spawnIndex++;
+            if (_spawnIndex > 1) _spawnIndex = 0;
+            _context.boneAttackTime = 0;
+        }
+        if (_isMovingFromPlayer)
         {
             _moveVector = (_context.enemyTransform.position - _context.playerTransform.position).normalized;
             
@@ -42,9 +50,9 @@ public class SkeletonMageStateMoveCasting : EnemyState
         _context.enemyMovement.Move(_moveVector);
     }
 
-    public override void SetUpState(EnemyContext context)
+    public override void SetUpState( EnemyContext context)
     {
-        base.SetUpState(context);
+        base.SetUpState( context);
         _context = (SkeletonMageContext)context;
 
         if (Vector2.Distance(_context.enemyTransform.position, _context.playerTransform.position) > _context.moveToPlayerDistance) _isMovingToPlayer = true;
