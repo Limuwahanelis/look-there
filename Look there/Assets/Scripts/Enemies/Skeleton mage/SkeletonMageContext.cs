@@ -8,7 +8,8 @@ public class SkeletonMageContext : EnemyContext
     public BoneMissileSpawner boneSpawner;
     public RotatingObjectsSpawner rotatingObjectsSpawner;
     public float boneMissileCooldown;
-    public float boneSpeed;
+    public FloatValue boneSpeed;
+    public float boneAttackTime;
     public SkeletonMageMovement enemyMovement;
     public float moveFromPlayerDistance;
     public float moveToPlayerDistance;

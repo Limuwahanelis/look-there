@@ -13,7 +13,7 @@ public class SkeletonMageController : EnemyController
     [SerializeField] float _playerDetectionRange;
     [SerializeField] float _moveFromPlayerDistance;
     [SerializeField] float _moveToPlayerDistance;
-    [SerializeField] float _boneBaseSpeed;
+    [SerializeField] FloatValue _boneBaseSpeed;
     protected SkeletonMageContext _context;
 
     void Start()
