@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
-public class CollisionInteractionComponent : MonoBehaviour, IPusher
+public class CollisionInteractionComponent : MonoBehaviour, IDamager
 {
+    [SerializeField] LayerMask _exludeFromHitting;
     [SerializeField]
     protected PlayerHealthSystem.DamageType _pushType;
     [SerializeField]
@@ -23,7 +25,8 @@ public class CollisionInteractionComponent : MonoBehaviour, IPusher
     }
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if(_pushCollidingObject)
+        if (_exludeFromHitting != (_exludeFromHitting | (1 << collision.otherCollider.gameObject.layer))) return;
+        if (_pushCollidingObject)
         {
             IPushable toPush = collision.transform.GetComponentInParent<IPushable>();
             if (toPush != null) toPush.Push(_pushType);
@@ -35,7 +38,7 @@ public class CollisionInteractionComponent : MonoBehaviour, IPusher
         }
     }
 
-    public void ResumeCollisonsWithPlayer(Collider2D[] playerCols)
+    public void ResumeCollisons(Collider2D[] playerCols)
     {
         foreach (Collider2D col in playerCols)
         {
@@ -43,8 +46,7 @@ public class CollisionInteractionComponent : MonoBehaviour, IPusher
         }
 
     }
-
-    public void PreventCollisionWithPlayer(Collider2D[] playerCols)
+    public void PreventCollisions(Collider2D[] playerCols)
     {
         foreach (Collider2D col in playerCols)
         {
