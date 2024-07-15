@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3455492441038460193}
   - component: {fileID: 9004326663541835562}
   - component: {fileID: 3532313512327105392}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: damaged bone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -77,6 +77,10 @@ MonoBehaviour:
   _rb: {fileID: 9004326663541835562}
   _rotationSpeed: 720
   _speed: 0
+  _enemyLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  _col: {fileID: 2168540206103912433}
 --- !u!1 &8554695251079375112
 GameObject:
   m_ObjectHideFlags: 0
@@ -87,7 +91,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4843623487321273544}
   - component: {fileID: 2168540206103912433}
-  m_Layer: 10
+  - component: {fileID: 378779030124638178}
+  m_Layer: 12
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -138,12 +143,29 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.0000000020752609, y: -0.017408552}
   m_Size: {x: 0.8988831, y: 0.24439138}
   m_Direction: 1
+--- !u!114 &378779030124638178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8554695251079375112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06d5c6a9e20906b4fbaae6d3e1b04000, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _pushType: 2
+  _damageType: 2
+  _pushCollidingObject: 0
+  _damageCollidingObject: 1
+  damage: 6
 --- !u!1 &8893936146799548317
 GameObject:
   m_ObjectHideFlags: 0
@@ -154,7 +176,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3964021176861101977}
   - component: {fileID: 561487305963348065}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
