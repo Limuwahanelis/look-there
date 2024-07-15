@@ -37,7 +37,7 @@ public class SkeletonController :EnemyController
             combat = _combat,
             minPlayerDistance = _minPlayerDistance,
             maxPlayerDistance = _maxPlayerDistance,
-            enemyMovement = _enemyMovement
+            enemyMovement = _enemyMovement,
 
         };
 
