@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerPushedState : PlayerState
 {
         private bool _isInAirAfterPush = false;
-    private IPusher _playerPusher;
+    private IDamager _playerPusher;
     private Collider2D[] _playerCols;
     public static Type StateType { get => typeof(PlayerPushedState); }
     public PlayerPushedState(GetState function) : base(function)
@@ -26,7 +26,7 @@ public class PlayerPushedState : PlayerState
             _context.playerMovement.StopPlayer();
             _isInAirAfterPush = false;
             _context.animationManager.SetAnimator(true);
-            if (_playerPusher != null) _playerPusher.ResumeCollisonsWithPlayer(_playerCols);
+            if (_playerPusher != null) _playerPusher.ResumeCollisons(_playerCols);
             _context.WaitFrameAndPerformFunction(() => { ChangeState(PlayerIdleState.StateType); });
             
             return;
