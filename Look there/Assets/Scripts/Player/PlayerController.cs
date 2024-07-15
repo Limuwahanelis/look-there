@@ -73,7 +73,7 @@ public class PlayerController : MonoBehaviour
         _currentPlayerState.InterruptState();
         _currentPlayerState = newState;
     }
-    public void PushPlayer(Vector3 pushDIrection, IPusher pusher)
+    public void PushPlayer(Vector3 pushDIrection, IDamager pusher)
     {
         _playerMovement.PushPlayer(pushDIrection, pusher);
         _currentPlayerState.Push();

@@ -63,7 +63,7 @@ public class EnemyMovement : MonoBehaviour
     {
         _rb.MovePosition(pos);
     }
-    public void Push(Vector3 PushForce, IPusher playerPusher)
+    public void Push(Vector3 PushForce, IDamager playerPusher)
     {
         Stop();
         _rb.AddForce(PushForce, ForceMode2D.Impulse);
@@ -78,7 +78,7 @@ public class EnemyMovement : MonoBehaviour
     {
         _rb.velocity = velocity;
     }
-    public void Push(enemyDirection pushDirection, Vector3 PushForce, IPusher playerPusher)
+    public void Push(enemyDirection pushDirection, Vector3 PushForce, IDamager playerPusher)
     {
         Stop();
         if (pushDirection == enemyDirection.RIGHT)
