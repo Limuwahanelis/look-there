@@ -6,6 +6,7 @@ public class BoneMissileSpawner : MonoBehaviour
 {
     [SerializeField] GameObject _bonePrefab;
     [SerializeField] Transform[] _spawnPositions;
+    [SerializeField] Transform _owner;
     private void Start()
     {
         //InitialSpawn();
@@ -16,9 +17,10 @@ public class BoneMissileSpawner : MonoBehaviour
     }
     public GameObject SpawnBone(int spawnerPosIndex,Transform target,float speed)
     {
-        BoneMissile aa = Instantiate(_bonePrefab, _spawnPositions[spawnerPosIndex].position, _bonePrefab.transform.rotation).GetComponent<BoneMissile>();
-        aa.SetDirectionAndSpeed(target.position,speed);
-        return aa.gameObject;
+        BoneMissile boneMissile = Instantiate(_bonePrefab, _spawnPositions[spawnerPosIndex].position, _bonePrefab.transform.rotation).GetComponent<BoneMissile>();
+        boneMissile.SetDirectionAndSpeed(target.position,speed);
+        boneMissile.SetOwner(_owner);
+        return boneMissile.gameObject;
     }
     public GameObject SpawnBone(int spawnerPosIndex,float angle,Transform parent)
     {
